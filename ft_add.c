@@ -233,7 +233,28 @@ char	**ft_checkarr(int *argc,char *str)
 	*argc = i;
 	return(res);
 }
-//"2 3 4 5" 
+int	ft_strlarg(int argc, char **str)
+{
+	int j;
+	int	i;
+	int	k;
+		j = 0;
+		i = 0;
+		k = 0;
+		while(j < argc)
+		{
+			while(str[k][i] >='0' && str[k][i] <= '9')
+			{
+				k++;
+				i++;
+			}
+			if(k == argc)
+				return(0);
+			j++;
+		}
+	return(1);
+}
+//"2 - 4 5" 
 int  main(int argc, char **argv)
 {
 	t_all	all;
@@ -242,7 +263,9 @@ int  main(int argc, char **argv)
 	argc--;
 	if(argc == 1)
 		temp = ft_checkarr(&argc,*temp);
-	if(argc <= 0 || ft_checkarg(argc,temp) || ft_checknum(argc,temp))
+
+	
+	if(argc <= 0 || ft_checkarg(argc,temp) || ft_checknum(argc,temp) || ft_strlarg(argc, temp) == 0)
 	{
 		ft_printf("sto cazzo");
 		return(0);
