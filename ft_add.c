@@ -1,31 +1,6 @@
 #include "push_swap.h"
 #include "libft/libft.h"
 
-int	ft_atoi_error(const char *str)
-{
-	int	res;
-	int	sign;
-
-	res = 0;
-	sign = 1;
-	while (*str == 32 || (*str >= 9 && *str <= 13))
-		str++;
-	if (*str == '-' || *str == '+')
-	{
-		if (*str == '-')
-			sign *= -1;
-		str++;
-	}
-	while (*str >= '0' && *str <= '9')
-	{
-		res = res * 10 + *str - '0';
-		str++;
-	}
-	if(*str)
-		exit(write(2,"error\n", 6));
-	return (res * sign);
-}
-
 int ft_checknum(int argc, char **argv)
 {
 	int	i;
@@ -233,28 +208,76 @@ char	**ft_checkarr(int *argc,char *str)
 	*argc = i;
 	return(res);
 }
+int	ft_char_in_array(char c, char *str)
+{
+		while(*str)
+		{
+			if(c == *str)
+			return(1);
+			str++;
+		}
+	return(0);
+}
 int	ft_strlarg(int argc, char **str)
 {
 	int j;
 	int	i;
 	int	k;
 		j = 0;
-		i = 0;
-		k = 0;
-		while(j < argc)
-		{
-			while(str[k][i] >='0' && str[k][i] <= '9')
+			k = 0;
+			while(k < argc)
 			{
+				i=0;
+				if (ft_char_in_array(str[k][i], "-+") && !ft_char_in_array(str[k][i+1],"-+") && str[k][i+1])
+					i++;
+				while(str[k][i] >='0' && str[k][i] <= '9')
+					i++;
+				if(i > 0)
+					j++;
 				k++;
-				i++;
 			}
-			if(k == argc)
+			if(j == argc)
 				return(0);
-			j++;
-		}
 	return(1);
 }
-//"2 - 4 5" 
+// -2 1 3 4
+
+//"2 4 5 3 7 8 19 22 35"
+
+// 1 2 3 1 4 5 6 7 8lengh 
+// 0 1 2 1 2 4 5 6 7sub seq
+//       4 5 7 8 19 22 35 
+int *ft_algorithm(t_stack	*lst,int argc)
+{
+	int	i;
+	int k;
+	int	*res;
+	int *arr;
+	t_stack	*temp;
+	t_stack	*temp1;
+	arr = malloc(sizeof(int) * argc) 
+	temp = lst->next;
+	while(temp->next != lst)
+	{
+		temp1 = lst;
+		k = 0;//2//4//6//1//9
+		i = 0;
+		arr[i] = 1;
+		while(temp1->content < temp->content)
+		{
+			k++;
+			arr[i+1] = arr[i++] + k;
+			temp1 = temp1 ->next;
+		}
+			temp = temp->next;
+	}
+	return(res);
+//prima cosa prendo la lista e la scorro
+//2 cosa comparo il primo elemento della lista con quello successivo
+// se il primo e' minore del successivo vado avanti fino al prossimo
+	
+
+}
 int  main(int argc, char **argv)
 {
 	t_all	all;
@@ -263,9 +286,7 @@ int  main(int argc, char **argv)
 	argc--;
 	if(argc == 1)
 		temp = ft_checkarr(&argc,*temp);
-
-	
-	if(argc <= 0 || ft_checkarg(argc,temp) || ft_checknum(argc,temp) || ft_strlarg(argc, temp) == 0)
+	if(argc <= 0 || ft_checkarg(argc,temp) || ft_checknum(argc,temp) || ft_strlarg(argc, temp))
 	{
 		ft_printf("sto cazzo");
 		return(0);
