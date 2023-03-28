@@ -246,37 +246,89 @@ int	ft_strlarg(int argc, char **str)
 
 // 1 2 3 1 4 5 6 7 8lengh 
 // 0 1 2 1 2 4 5 6 7sub seq
-//       4 5 7 8 19 22 35 
+//       4 5 7 8 19 22 35
+int	ft_checknode(t_stack	*lst, int pos)
+{
+		while(pos-- > 0)
+			lst = lst->next;
+		return(lst->content);	
+}
+int	*ft_fillarr(t_stack *lst, int *res,int pos)
+{
+	while(pos >= 0)
+	{
+		res[pos] = ft_checknode(lst,res[pos]);
+		pos--;
+	}
+	return(res);
+}
+
 int *ft_algorithm(t_stack	*lst,int argc)
 {
 	int	i;
 	int k;
 	int	*res;
 	int *arr;
+	int lenght;
 	t_stack	*temp;
 	t_stack	*temp1;
-	arr = malloc(sizeof(int) * argc) 
-	temp = lst->next;
+	arr = malloc(sizeof(int) * argc);
+	temp = lst;
+	k = 0;//2//4//6//1//9
+	i = 0;
+	while(i < argc)
+		arr[i++] = 1;
 	while(temp->next != lst)
 	{
 		temp1 = lst;
-		k = 0;//2//4//6//1//9
 		i = 0;
-		arr[i] = 1;
-		while(temp1->content < temp->content)
+		while(temp1 != temp)
 		{
-			k++;
-			arr[i+1] = arr[i++] + k;
+			if(temp1->content < temp->content && arr[k] <= arr[i])
+				arr[k] = arr[i] + 1;
+			i++;
 			temp1 = temp1 ->next;
 		}
 			temp = temp->next;
+		k++;
+		////////
 	}
-	return(res);
-//prima cosa prendo la lista e la scorro
-//2 cosa comparo il primo elemento della lista con quello successivo
-// se il primo e' minore del successivo vado avanti fino al prossimo
-	
-
+	temp1 = lst;
+		i = 0;
+		while(temp1 != temp)
+		{
+			if(temp1->content < temp->content && arr[k] <= arr[i])
+				arr[k] = arr[i] + 1;
+			i++;
+			temp1 = temp1 ->next;
+		}
+		lenght = -1;
+		i = 0;
+		while( i < argc)
+		{
+			if(arr[i] > lenght)
+				lenght = arr[i];
+			i++;
+		} 
+		ft_printf("\nlenght=%d\n",lenght);
+		res = malloc(sizeof(int) * lenght);
+		i = argc-1; ft_printf("\nargc:%d\n",i);
+		while(i > 0)
+		{
+			if(lenght == arr[i])
+				break;
+			i--;
+		}
+	k = i;
+	res[--lenght] = i;
+	while(lenght > 0)	
+	{
+		if(arr[i] == lenght && ft_checknode(lst,i) < ft_checknode(lst,res[lenght]))
+			res[--lenght] = i;
+		i--;
+	}
+	res = ft_fillarr(lst,res,k);
+	return(res);	
 }
 int  main(int argc, char **argv)
 {
@@ -296,6 +348,8 @@ int  main(int argc, char **argv)
 	all.b = NULL;
 	ft_printf("STACK A:\n");
 	ft_printstack_new(all.a);
+	ft_algorithm(all.a, argc);
+	/*ft_printf("STACK B:\n");
 	
 	ft_ra(&all.a);
 	ft_printf("\nSTACK RA:\n");
@@ -307,7 +361,6 @@ int  main(int argc, char **argv)
 	ft_free_lst(&all.a);
 	ft_free_lst(&all.b);
 
-	/*ft_printf("STACK B:\n");
 	ft_printstack_new(all.b);
 
 	ft_printf("PB:\n");
