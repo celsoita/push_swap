@@ -77,6 +77,21 @@ void	ft_printstack_new(t_stack *lst)
 		}
 		ft_printf("%d\n",temp->content);
 }
+// questa e' una 
+void	ft_printstack_rnew(t_stack *lst)
+{
+	t_stack	*temp;
+
+	if(!lst)
+	return ;
+	temp = lst->prev;
+	while (temp != lst)
+		{
+			ft_printf("%d\n",temp->content);
+			temp = temp->prev;
+		}
+		ft_printf("%d\n",temp->content);
+}
 // questa e' una funzione per creare tutto lo stack essa ha bisogno di una len = argc, e degli argomenti = argv e restituisce tutto lo stack.
 t_stack	*ft_createstack(int argc, char **argv)
 {
@@ -155,32 +170,35 @@ void	ft_rrr(t_stack **lsta, t_stack **lstb)
 	ft_rra(lstb);
 }
 // questa funzione e' fatta con il culo  pusha il primo elemento di a in b 
-void	ft_pb(t_all *lst)
+void	ft_pb(t_stack **stack_in, t_stack **stack_out)
 {
-	t_stack	*temp;
-	if(lst->a == NULL)
-		return ;
-	temp = lst->a->next;
-	temp->prev = lst->a->prev;
-	if(lst->b)
-	{
-		lst->a->next = lst->b;
-		lst->a->prev = lst->b->prev;
-		lst->b->prev->next = lst->a;
-		lst->b->prev = lst->a;
-	}
-	else
-	{
-		lst->a->prev->next = temp;
-		lst->a->next = lst->a;
-		lst->a->prev = lst->a;
-	}
-		lst->b = lst->a;
-		if(lst->a != temp)
-			lst->a = temp;
+		t_stack	*temp;
+
+		if(stack_in == NULL)
+		 	return ;
+		temp = (*stack_in)->next;
+		if((*stack_in)->next == *stack_in)
+			temp = NULL;
+		(*stack_in)->next->prev = (*stack_in)->prev; 
+		(*stack_in)->prev->next = temp;
+		if(*stack_out)
+		{
+			(*stack_in)->next = *stack_out;
+			(*stack_in)->prev = (*stack_out)->prev;
+			(*stack_out)->prev->next = *stack_in;
+			(*stack_out)->prev = *stack_in;
+		}
 		else
-			lst->a = NULL;
+		{
+			(*stack_in)->prev = *stack_in;
+			(*stack_in)->next = *stack_in;
+		}
+		*stack_out = *stack_in;
+		*stack_in = temp;
 }
+// 2 	1
+// 4	6
+// 3
 
 void	ft_free_lst(t_stack **lst)
 {
@@ -240,13 +258,6 @@ int	ft_strlarg(int argc, char **str)
 				return(0);
 	return(1);
 }
-// -2 1 3 4
-
-//"2 4 5 3 7 8 19 22 35"
-
-// 1 2 3 1 4 5 6 7 8lengh 
-// 0 1 2 1 2 4 5 6 7sub seq
-//       4 5 7 8 19 22 35
 int	ft_checknode(t_stack	*lst, int pos)
 {
 		while(pos-- > 0)
@@ -263,46 +274,73 @@ int	*ft_fillarr(t_stack *lst, int *res,int pos)
 	return(res);
 }
 
-int *ft_algorithm(t_stack	*lst,int argc)
+void	ft_simulate_stack_push(t_stack **stackIn, t_stack **stackOut)
+{
+	t_stack	*temp;
+
+	if (!(*stackIn))
+		return ;
+	temp = NULL;
+	if ((*stackIn)->next != (*stackIn))
+	{
+		temp = (*stackIn)->next;
+		temp->prev = (*stackIn)->prev;
+		temp->prev->next = temp;
+	}
+	(*stackIn)->prev = *stackIn;
+	(*stackIn)->next = *stackIn;
+	if (*stackOut)
+	{
+		(*stackIn)->prev = (*stackOut)->prev;
+		(*stackIn)->next = (*stackOut);
+		(*stackOut)->prev->next = (*stackIn);
+		(*stackOut)->prev = (*stackIn);
+	}
+	*stackOut = *stackIn;
+	*stackIn = temp;
+}
+int *ft_algorithm(t_stack	*lst,int argc, int *len_arr)
 {
 	int	i;
 	int k;
 	int	*res;
 	int *arr;
 	int lenght;
-	t_stack	*temp;
-	t_stack	*temp1;
+	t_stack	*end;
+	t_stack	*start;
+
 	arr = malloc(sizeof(int) * argc);
-	temp = lst;
+	end = lst;
 	k = 0;//2//4//6//1//9
 	i = 0;
 	while(i < argc)
 		arr[i++] = 1;
-	while(temp->next != lst)
+	while(end->next != lst)
 	{
-		temp1 = lst;
+		start = lst;
 		i = 0;
-		while(temp1 != temp)
+		while(start != end)
 		{
-			if(temp1->content < temp->content && arr[k] <= arr[i])
+			if(start->content < end->content && arr[k] <= arr[i])
 				arr[k] = arr[i] + 1;
 			i++;
-			temp1 = temp1 ->next;
+			start = start ->next;
 		}
-			temp = temp->next;
+			end = end->next;
 		k++;
 		////////
-	}
-	temp1 = lst;
+	}// questa e' la lunghezza della subsequence
+	start = lst;
 		i = 0;
-		while(temp1 != temp)
+		while(start != end)
 		{
-			if(temp1->content < temp->content && arr[k] <= arr[i])
+			if(start->content < end->content && arr[k] <= arr[i])
 				arr[k] = arr[i] + 1;
 			i++;
-			temp1 = temp1 ->next;
+			start = start ->next;
 		}
-		lenght = -1;
+		// qua finisce !
+		lenght = 0;
 		i = 0;
 		while( i < argc)
 		{
@@ -313,6 +351,7 @@ int *ft_algorithm(t_stack	*lst,int argc)
 		ft_printf("\nlenght=%d\n",lenght);
 		res = malloc(sizeof(int) * lenght);
 		i = argc-1; ft_printf("\nargc:%d\n",i);
+		*len_arr = lenght;
 		while(i > 0)
 		{
 			if(lenght == arr[i])
@@ -328,12 +367,37 @@ int *ft_algorithm(t_stack	*lst,int argc)
 		i--;
 	}
 	res = ft_fillarr(lst,res,k);
+	ft_printf("uaaa fratm:%i\n",lenght);
 	return(res);	
 }
+
+void	ft_pushorder(int	*alg, t_all *stack, int arr_len)
+{
+	int	i;
+	int	k;
+		
+	i =  0;
+	k = 0;
+	(void) arr_len;
+	while(k < stack->len)
+	{
+		if(alg[i] != stack->a->content)
+			ft_pb(&stack->a,&stack->b);
+		else
+		{
+			ft_ra(&stack->a);
+			i++;
+		}
+			k++;
+	}
+}
+
 int  main(int argc, char **argv)
 {
 	t_all	all;
 	char **temp;
+	int	*arr;
+
 	temp = argv + 1;
 	argc--;
 	if(argc == 1)
@@ -348,12 +412,18 @@ int  main(int argc, char **argv)
 	all.b = NULL;
 	ft_printf("STACK A:\n");
 	ft_printstack_new(all.a);
-	ft_algorithm(all.a, argc);
-	/*ft_printf("STACK B:\n");
-	
-	ft_ra(&all.a);
-	ft_printf("\nSTACK RA:\n");
+	arr = ft_algorithm(all.a, argc,&argc);
+	ft_printf("sorm:%i\n",argc);
+	(void) arr;
+	ft_pushorder(arr,&all,argc);
+	ft_printf("STACK A:\n");
 	ft_printstack_new(all.a);
+	ft_printf("STACK B:\n");
+	ft_printstack_new(all.b);
+	
+	
+	/*ft_ra(&all.a);
+	ft_printf("\nSTACK RA:\n");
 
 	ft_rra(&all.a);
 	ft_printf("\nSTACK RRA:\n");
@@ -363,8 +433,6 @@ int  main(int argc, char **argv)
 
 	ft_printstack_new(all.b);
 
-	ft_printf("PB:\n");
-	ft_pb(&all);
 	ft_printstack_new(all.b);
 
 	ft_printf("STACK A:\n");
