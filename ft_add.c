@@ -1,6 +1,5 @@
 #include "push_swap.h"
 #include "libft/libft.h"
-
 //check arg for see in are only number
 int ft_checknum(int argc, char **argv)
 {
@@ -141,8 +140,8 @@ void ft_rrotate(t_stack **lst)
 // this function rotate stack and in reverse order
 void	ft_rrr(t_stack **lsta, t_stack **lstb)
 {
-	ft_rra(lsta);
-	ft_rra(lstb);
+	ft_rrotate(lsta);
+	ft_rrotate(lstb);
 }
 // this function push the first element in stack_in to stack_out
 void	ft_push(t_stack **stack_in, t_stack **stack_out)
@@ -343,7 +342,46 @@ void	ft_pushorder(int	*alg, t_all *stack, int arr_len)
 			k++;
 	}
 }
+//to do
+// function countmovement
+int	ft_countmv(t_stack *a, t_stack *b, int len)
+{
+	int		i;
+	t_stack	*start;
 
+	start = a;
+	i = 0;
+	while (1)
+	{
+		if(a->content < b->content && a->next->content > b->content)
+		{
+			i+=2;
+			break ;
+		}
+		a = a->next;
+		i++;
+		if (i > len / 2)
+		{
+			i = 0;
+			a = start;
+			break ;
+		}
+	}
+	if (!i)
+	{
+		while (1)
+		{
+			if(a->content < b->content && a->next->content > b->content)
+			{
+				i+=2;
+				break ;
+			}
+			a = a->prev;
+			i++;
+		}
+	}
+	return(i);
+}
 int  main(int argc, char **argv)
 {
 	t_all	all;
@@ -372,4 +410,8 @@ int  main(int argc, char **argv)
 	ft_printstack_new(all.a);
 	ft_printf("STACK B:\n");
 	ft_printstack_new(all.b);
+	ft_printf("First  elem of b moves:%i\n", ft_countmv(all.a,all.b, all.len));
+	ft_printf("STACK A:\n");
+	ft_printstack_new(all.a);
+	ft_printf("Second elem of b moves:%i\n", ft_countmv(all.a,all.b->next, all.len));
 }
