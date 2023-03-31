@@ -1,6 +1,7 @@
 #include "push_swap.h"
 #include "libft/libft.h"
 
+//check arg for see in are only number
 int ft_checknum(int argc, char **argv)
 {
 	int	i;
@@ -21,6 +22,7 @@ int ft_checknum(int argc, char **argv)
 	}
 	return(0);
 }
+//check double number
 int	ft_checkarg(int argc, char **argv)
 {
 	int	c;
@@ -42,7 +44,7 @@ int	ft_checkarg(int argc, char **argv)
 	  		if(arr[i] == n)
 	  		{
 				free(arr);
-				return(1); // se uguale a 1 errore
+				return(1); //if equal 1 give error
 			}	
 		i--;
 		}
@@ -51,7 +53,7 @@ int	ft_checkarg(int argc, char **argv)
 	free(arr);
 	return(0);
 }
-// funzione per creare un nodo e aggiungervi un numero e collegare il prev con il successivo
+// create node and add to the next
 t_stack	*ft_add(t_stack *prev, int n)
 {
 	t_stack *node;
@@ -62,7 +64,7 @@ t_stack	*ft_add(t_stack *prev, int n)
 	node->content = n;
 	return(node);
 }
-//serve  a printare la lista finche' la mia len esiste la len sarebbe il mio argc.
+//print stack (print list)
 void	ft_printstack_new(t_stack *lst)
 {
 	t_stack	*temp;
@@ -77,7 +79,7 @@ void	ft_printstack_new(t_stack *lst)
 		}
 		ft_printf("%d\n",temp->content);
 }
-// questa e' una 
+// reverse print stack
 void	ft_printstack_rnew(t_stack *lst)
 {
 	t_stack	*temp;
@@ -92,7 +94,7 @@ void	ft_printstack_rnew(t_stack *lst)
 		}
 		ft_printf("%d\n",temp->content);
 }
-// questa e' una funzione per creare tutto lo stack essa ha bisogno di una len = argc, e degli argomenti = argv e restituisce tutto lo stack.
+//this function create stack and we need a len = argc , and argument = argv and return all the stack
 t_stack	*ft_createstack(int argc, char **argv)
 {
 	t_stack *lst;
@@ -114,7 +116,7 @@ t_stack	*ft_createstack(int argc, char **argv)
 	temp->next = lst;
 	return(lst);
 }
-// questa funzione swappa i primi due elementi dello stack che si vuole
+// this function swap the first 2 element in the list
 void	ft_swap(t_stack *lst)
 {
 	int	temp;
@@ -122,55 +124,28 @@ void	ft_swap(t_stack *lst)
 	lst->content = lst->next->content;
 	lst->next->content = temp;
 }
-// questa funzione e' fatta con il culo  pusha il primo elemento di b in a
-void	ft_pa(t_all *lst)
-{
-	t_stack	*temp;
-	if(lst->b == NULL)
-		return ;
-	temp = lst->b->next;
-	temp->prev = lst->b->prev;
-
-	if(lst->a)
-	{
-	lst->b->next = lst->a;
-	lst->b->prev = lst->a->prev;
-	lst->a->prev->next = lst->b;
-	lst->a->prev = lst->b;
-	}
-	else
-	{	
-		lst->b->prev->next = temp;
-		lst->b->next = lst->b;
-		lst->b->prev = lst->b;
-	}
-		lst->a = lst->b;
-		if(lst->b != temp)
-			lst->b = temp;
-		else
-			lst->b = NULL;
-	
-	//lst->b->next = lst->b->prev;	
-}
-void	ft_ra(t_stack **lst)
+// this function rotate stack 
+void	ft_rotate(t_stack **lst)
 {
 		if(!*lst || (*lst)->next == *lst)
 			return ;
 		 *lst = (*lst)->next;
 }
-void ft_rra(t_stack **lst)
+// this function rotate stack in reverse order
+void ft_rrotate(t_stack **lst)
 {
 		if(!*lst || (*lst)->prev == *lst)
 			return ;
 		*lst = (*lst)->prev;
 }
+// this function rotate stack and in reverse order
 void	ft_rrr(t_stack **lsta, t_stack **lstb)
 {
 	ft_rra(lsta);
 	ft_rra(lstb);
 }
-// questa funzione e' fatta con il culo  pusha il primo elemento di a in b 
-void	ft_pb(t_stack **stack_in, t_stack **stack_out)
+// this function push the first element in stack_in to stack_out
+void	ft_push(t_stack **stack_in, t_stack **stack_out)
 {
 		t_stack	*temp;
 
@@ -196,10 +171,7 @@ void	ft_pb(t_stack **stack_in, t_stack **stack_out)
 		*stack_out = *stack_in;
 		*stack_in = temp;
 }
-// 2 	1
-// 4	6
-// 3
-
+// this function free the list
 void	ft_free_lst(t_stack **lst)
 {
 	t_stack *temp;
@@ -215,6 +187,7 @@ void	ft_free_lst(t_stack **lst)
 	}
 			
 }
+//this function is a check for accept  the string and create a matrix for it for example " 1 2 3" be a "1" "2" "3"
 char	**ft_checkarr(int *argc,char *str)
 {
 	char	**res;
@@ -226,6 +199,7 @@ char	**ft_checkarr(int *argc,char *str)
 	*argc = i;
 	return(res);
 }
+//if the char is present in array return 1 u can use it for comparison with - || +
 int	ft_char_in_array(char c, char *str)
 {
 		while(*str)
@@ -236,6 +210,7 @@ int	ft_char_in_array(char c, char *str)
 		}
 	return(0);
 }
+//this function check if present in array  "-" " +"
 int	ft_strlarg(int argc, char **str)
 {
 	int j;
@@ -258,12 +233,14 @@ int	ft_strlarg(int argc, char **str)
 				return(0);
 	return(1);
 }
+//take content at position of lst
 int	ft_checknode(t_stack	*lst, int pos)
 {
 		while(pos-- > 0)
 			lst = lst->next;
 		return(lst->content);	
 }
+//fill an array with stack content
 int	*ft_fillarr(t_stack *lst, int *res,int pos)
 {
 	while(pos >= 0)
@@ -273,32 +250,7 @@ int	*ft_fillarr(t_stack *lst, int *res,int pos)
 	}
 	return(res);
 }
-
-void	ft_simulate_stack_push(t_stack **stackIn, t_stack **stackOut)
-{
-	t_stack	*temp;
-
-	if (!(*stackIn))
-		return ;
-	temp = NULL;
-	if ((*stackIn)->next != (*stackIn))
-	{
-		temp = (*stackIn)->next;
-		temp->prev = (*stackIn)->prev;
-		temp->prev->next = temp;
-	}
-	(*stackIn)->prev = *stackIn;
-	(*stackIn)->next = *stackIn;
-	if (*stackOut)
-	{
-		(*stackIn)->prev = (*stackOut)->prev;
-		(*stackIn)->next = (*stackOut);
-		(*stackOut)->prev->next = (*stackIn);
-		(*stackOut)->prev = (*stackIn);
-	}
-	*stackOut = *stackIn;
-	*stackIn = temp;
-}
+//its a LIS algorithm
 int *ft_algorithm(t_stack	*lst,int argc, int *len_arr)
 {
 	int	i;
@@ -370,7 +322,7 @@ int *ft_algorithm(t_stack	*lst,int argc, int *len_arr)
 	ft_printf("uaaa fratm:%i\n",lenght);
 	return(res);	
 }
-
+//this function check the number in stack and push the element not in order in b ... remaining stack a in order
 void	ft_pushorder(int	*alg, t_all *stack, int arr_len)
 {
 	int	i;
@@ -382,10 +334,10 @@ void	ft_pushorder(int	*alg, t_all *stack, int arr_len)
 	while(k < stack->len)
 	{
 		if(alg[i] != stack->a->content)
-			ft_pb(&stack->a,&stack->b);
+			ft_push(&stack->a,&stack->b);
 		else
 		{
-			ft_ra(&stack->a);
+			ft_rotate(&stack->a);
 			i++;
 		}
 			k++;
@@ -420,37 +372,4 @@ int  main(int argc, char **argv)
 	ft_printstack_new(all.a);
 	ft_printf("STACK B:\n");
 	ft_printstack_new(all.b);
-	
-	
-	/*ft_ra(&all.a);
-	ft_printf("\nSTACK RA:\n");
-
-	ft_rra(&all.a);
-	ft_printf("\nSTACK RRA:\n");
-	ft_printstack_new(all.a);
-	ft_free_lst(&all.a);
-	ft_free_lst(&all.b);
-
-	ft_printstack_new(all.b);
-
-	ft_printstack_new(all.b);
-
-	ft_printf("STACK A:\n");
-	ft_printstack_new(all.a);
-
-	
-	ft_printf("STACK B:\n");
-	ft_printstack_new(all.b);
-
-	ft_printf("PA:\n");
-	ft_pa(&all);
-	ft_printstack_new(all.a);
-		
-	ft_printf("STACK B:\n");
-	ft_printstack_new(all.b);
-
-	ft_printf("PA:\n");
-	ft_pa(&all);
-	ft_printstack_new(all.a);
-	*/
 }
