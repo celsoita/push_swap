@@ -351,6 +351,11 @@ int	ft_countmv(t_stack *a, t_stack *b, int len)
 
 	start = a;
 	i = 0;
+	if(a->content > b->content)
+	{	
+		i = 1;
+		return(i);
+	}
 	while (1)
 	{
 		if(a->content < b->content && a->next->content > b->content)
@@ -359,8 +364,8 @@ int	ft_countmv(t_stack *a, t_stack *b, int len)
 			break ;
 		}
 		a = a->next;
-		i++;
-		if (i > len / 2)
+		i+=2;
+		if (i / 2 > len / 2)
 		{
 			i = 0;
 			a = start;
@@ -382,6 +387,38 @@ int	ft_countmv(t_stack *a, t_stack *b, int len)
 	}
 	return(i);
 }
+
+//this function count the size of stack
+int	ft_stacksize(t_stack *stack)
+{
+	t_stack *temp;
+	int 	i;
+	temp = stack->next;
+	i = 1;
+	while(temp != stack)
+	{
+		temp = temp->next;
+		i++; 
+	}
+	return(i);
+}
+
+int	*ft_countmvb(int len)
+{
+	int *res;
+	int	c;
+	int	i;
+
+	res = malloc(sizeof(int) * len);
+	i = 0;
+	c = 0;
+	while(c < len/2)
+		res[i++] = c++;
+	while(c)
+		res[i++] = -c--;
+	return(res);
+}
+
 int  main(int argc, char **argv)
 {
 	t_all	all;
@@ -410,8 +447,10 @@ int  main(int argc, char **argv)
 	ft_printstack_new(all.a);
 	ft_printf("STACK B:\n");
 	ft_printstack_new(all.b);
+	all.mov_b = ft_countmvb(ft_stacksize(all.b));
 	ft_printf("First  elem of b moves:%i\n", ft_countmv(all.a,all.b, all.len));
 	ft_printf("STACK A:\n");
 	ft_printstack_new(all.a);
 	ft_printf("Second elem of b moves:%i\n", ft_countmv(all.a,all.b->next, all.len));
+	ft_printf("dimensione a :%i\n",ft_stacksize(all.a));
 }
