@@ -350,7 +350,9 @@ int	ft_countmv(t_stack *a, t_stack *b, int len)
 {
 	int		i;
 	t_stack	*start;
+	int temp;
 
+	temp = len;
 	start = a;
 	i = 0;
 	if(a->content > b->content)
@@ -376,7 +378,7 @@ int	ft_countmv(t_stack *a, t_stack *b, int len)
 	}
 	if (!i)
 	{
-		while (1)
+		while (temp-- > 0)
 		{
 			if(a->content < b->content && a->next->content > b->content)
 			{
@@ -386,6 +388,8 @@ int	ft_countmv(t_stack *a, t_stack *b, int len)
 			a = a->prev;
 			i++;
 		}
+		if(temp < 0)
+			i=2;
 	}
 	return(i);
 }
@@ -461,7 +465,8 @@ int  main(int argc, char **argv)
 	ft_printf("STACK B:\n");
 	ft_printstack_new(all.b);
 	all.mov_b = ft_countmvb(ft_stacksize(all.b));
-	ft_printf("First  elem of b moves:%i\n", ft_countmv(all.a,all.b, all.len));
+	argc = ft_stacksize(all.a);
+	ft_printf("First  elem of b moves:%i\n", ft_countmv(all.a,all.b, argc));
 	ft_printf("STACK A:\n");
 	ft_printstack_new(all.a);
 	ft_printf("Second elem of b moves:%i\n", ft_countmv(all.a,all.b->next, all.len));
