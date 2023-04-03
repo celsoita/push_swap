@@ -11,6 +11,7 @@ int ft_checknum(int argc, char **argv)
 	// devo scorrere argv se in esso c'e' solo una lettera return 1
 	while(c < argc)
 	{
+		i = 0;
 		while(argv[c][i])
 		{
 			if(ft_isdigit(argv[c][i])!= 1 && argv[c][i] != '-' && argv[c][i] != '+')
@@ -233,7 +234,7 @@ int	ft_strlarg(int argc, char **str)
 	return(1);
 }
 //take content at position of lst
-int	ft_checknode(t_stack	*lst, int pos)
+int	ft_checknode(t_stack *lst, int pos)
 {
 		while(pos-- > 0)
 			lst = lst->next;
@@ -250,7 +251,7 @@ int	*ft_fillarr(t_stack *lst, int *res,int pos)
 	return(res);
 }
 //its a LIS algorithm
-int *ft_algorithm(t_stack	*lst,int argc, int *len_arr)
+int *ft_algorithm(t_stack *lst,int argc, int *len_arr)
 {
 	int	i;
 	int k;
@@ -309,7 +310,7 @@ int *ft_algorithm(t_stack	*lst,int argc, int *len_arr)
 				break;
 			i--;
 		}
-	k = i;
+	k = lenght - 1;
 	res[--lenght] = i;
 	while(lenght > 0)	
 	{
@@ -319,10 +320,11 @@ int *ft_algorithm(t_stack	*lst,int argc, int *len_arr)
 	}
 	res = ft_fillarr(lst,res,k);
 	ft_printf("uaaa fratm:%i\n",lenght);
+	free(arr);
 	return(res);	
 }
 //this function check the number in stack and push the element not in order in b ... remaining stack a in order
-void	ft_pushorder(int	*alg, t_all *stack, int arr_len)
+void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 {
 	int	i;
 	int	k;
@@ -403,6 +405,17 @@ int	ft_stacksize(t_stack *stack)
 	return(i);
 }
 
+void ft_freematrix(char **matrix)
+{
+	int	i;
+		i = 0;
+		while(matrix[i])
+		{	
+			free(matrix[i]);
+			i++;
+		}
+		free(matrix);
+}
 int	*ft_countmvb(int len)
 {
 	int *res;
@@ -432,6 +445,7 @@ int  main(int argc, char **argv)
 	if(argc <= 0 || ft_checkarg(argc,temp) || ft_checknum(argc,temp) || ft_strlarg(argc, temp))
 	{
 		ft_printf("sto cazzo");
+		ft_freematrix(temp);
 		return(0);
 	}
 	all.len = argc;
@@ -441,7 +455,6 @@ int  main(int argc, char **argv)
 	ft_printstack_new(all.a);
 	arr = ft_algorithm(all.a, argc,&argc);
 	ft_printf("sorm:%i\n",argc);
-	(void) arr;
 	ft_pushorder(arr,&all,argc);
 	ft_printf("STACK A:\n");
 	ft_printstack_new(all.a);
@@ -453,4 +466,9 @@ int  main(int argc, char **argv)
 	ft_printstack_new(all.a);
 	ft_printf("Second elem of b moves:%i\n", ft_countmv(all.a,all.b->next, all.len));
 	ft_printf("dimensione a :%i\n",ft_stacksize(all.a));
+	ft_free_lst(&all.a);
+	ft_free_lst(&all.b);
+
+	ft_freematrix(temp);
+	free(arr);
 }
