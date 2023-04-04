@@ -344,56 +344,70 @@ void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 			k++;
 	}
 }
-//to do
-// function countmovement
-int	ft_countmv(t_stack *a, t_stack *b, int len)
+// this function is a support for ft_countmva
+int	ft_calculatemv(t_stack *a, t_stack *b, t_stack *start, int temp)
 {
-	int		i;
-	t_stack	*start;
-	int temp;
+	int	i;
+	int len;
+	len = temp;
 
-	temp = len;
-	start = a;
 	i = 0;
 	if(a->content > b->content)
-	{	
 		i = 1;
-		return(i);
-	}
-	while (1)
+	else
 	{
-		if(a->content < b->content && a->next->content > b->content)
-		{
-			i+=2;
-			break ;
-		}
-		a = a->next;
-		i+=2;
-		if (i / 2 > len / 2)
-		{
-			i = 0;
-			a = start;
-			break ;
-		}
-	}
-	if (!i)
-	{
-		while (temp-- > 0)
+		while (1)
 		{
 			if(a->content < b->content && a->next->content > b->content)
 			{
 				i+=2;
 				break ;
 			}
-			a = a->prev;
-			i++;
+			a = a->next;
+			i+=2;
+			if (i / 2 > len / 2)
+			{
+				i = 0;
+				a = start;
+				break ;
+			}
 		}
-		if(temp < 0)
-			i=2;
+		if (!i)
+		{
+			while (temp-- > 0)
+			{
+				if(a->content < b->content && a->next->content > b->content)
+				{
+					i+=2;
+					break ;
+				}
+				a = a->prev;
+				i+=2;
+			}
+			if(temp < 0)
+				i=2;
+		}
 	}
-	return(i);
+	return (i);
 }
+// function countmovement for push element in right order
+int	*ft_countmva(t_stack *a, t_stack *b, int len)
+{
+	t_stack *startb;
+	int	*res;
+	int	k;
 
+	k = 0;
+	startb = b;
+	res = malloc(sizeof(int) * len);
+	while(startb != b->next)
+	{
+		res[k++] = ft_calculatemv(a, b, a, len);
+		b = b->next;
+	}
+	res[k] = ft_calculatemv(a, b, a, len);
+	return(res);
+}
 //this function count the size of stack
 int	ft_stacksize(t_stack *stack)
 {
@@ -408,7 +422,7 @@ int	ft_stacksize(t_stack *stack)
 	}
 	return(i);
 }
-
+// this function free the matrix 
 void ft_freematrix(char **matrix)
 {
 	int	i;
@@ -420,6 +434,7 @@ void ft_freematrix(char **matrix)
 		}
 		free(matrix);
 }
+// this function count the movement necessary for move the element in the first position
 int	*ft_countmvb(int len)
 {
 	int *res;
@@ -435,7 +450,57 @@ int	*ft_countmvb(int len)
 		res[i++] = -c--;
 	return(res);
 }
+int	ft_checklessnum(int *arr,int len)
+{
+	int	res;
 
+	res = arr[len];
+	while(len-- >= 0)
+	{
+		if(arr[len] < res)
+			res = arr[len];	
+	}
+	return(res);
+}
+int	ft_positive(int num)
+{
+	if (num < 0)
+		num = -num;
+	return (num);
+}
+//this function convert count in mv
+void	ft_convertmv(t_all *stacks)
+{
+	int	*mov_a;
+	int *mov_b;
+	int	i;
+	int	len;
+	int	*temp;
+	int start;
+	len = ft_stacksize(stacks->b);
+	mov_a =stacks->mov_a;
+	mov_b =stacks->mov_b;
+	temp = malloc(sizeof(int) * len);
+
+	i = 0;
+	while(i < len)
+	{
+		temp[i] = mov_a[i] + ft_positive(mov_b[i]);
+		i++;
+	}
+	start = ft_checklessnum(temp,len);
+	i = 0;
+	while(temp[i] != start)
+		i++;
+	start = 0;
+	while(start++ < i)
+	{
+		if(mov_b[i] < 0)
+			ft_rrotate(&stacks->b);
+		else
+			ft_rotate(&stacks->b);
+	}
+}
 int  main(int argc, char **argv)
 {
 	t_all	all;
@@ -466,10 +531,10 @@ int  main(int argc, char **argv)
 	ft_printstack_new(all.b);
 	all.mov_b = ft_countmvb(ft_stacksize(all.b));
 	argc = ft_stacksize(all.a);
-	ft_printf("First  elem of b moves:%i\n", ft_countmv(all.a,all.b, argc));
-	ft_printf("STACK A:\n");
-	ft_printstack_new(all.a);
-	ft_printf("Second elem of b moves:%i\n", ft_countmv(all.a,all.b->next, all.len));
+	all.mov_a = ft_countmva(all.a,all.b,argc);
+	ft_convertmv(&all);
+	ft_printf("STACK B:\n");
+	ft_printstack_new(all.b);
 	ft_printf("dimensione a :%i\n",ft_stacksize(all.a));
 	ft_free_lst(&all.a);
 	ft_free_lst(&all.b);
