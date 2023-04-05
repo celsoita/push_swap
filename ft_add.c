@@ -450,6 +450,7 @@ int	*ft_countmvb(int len)
 		res[i++] = -c--;
 	return(res);
 }
+//search the less num in array iny
 int	ft_checklessnum(int *arr,int len)
 {
 	int	res;
@@ -462,6 +463,7 @@ int	ft_checklessnum(int *arr,int len)
 	}
 	return(res);
 }
+//be positive a int 
 int	ft_positive(int num)
 {
 	if (num < 0)
@@ -475,22 +477,22 @@ void	ft_convertmv(t_all *stacks)
 	int *mov_b;
 	int	i;
 	int	len;
-	int	*temp;
+	int	*naction;
 	int start;
 	len = ft_stacksize(stacks->b);
 	mov_a =stacks->mov_a;
 	mov_b =stacks->mov_b;
-	temp = malloc(sizeof(int) * len);
+	naction = malloc(sizeof(int) * len);
 
 	i = 0;
 	while(i < len)
 	{
-		temp[i] = mov_a[i] + ft_positive(mov_b[i]);
+		naction[i] = mov_a[i] + ft_positive(mov_b[i]);
 		i++;
 	}
-	start = ft_checklessnum(temp,len);
+	start = ft_checklessnum(naction,len);
 	i = 0;
-	while(temp[i] != start)
+	while(naction[i] != start)
 		i++;
 	start = 0;
 	while(start++ < i)
@@ -501,6 +503,51 @@ void	ft_convertmv(t_all *stacks)
 			ft_rotate(&stacks->b);
 	}
 }
+
+void	ft_order(t_stack **a, t_stack **b, int len)
+{
+	int	i;
+
+	i = 0;
+	if((*b)->content < (*a)->content)
+	{
+		ft_push(b,a);
+		return ;
+	}
+	if(ft_checknode(*a,len/2) > (*b)->content)
+	{
+		while(i < len)
+		{
+			if((*b)->content > (*a)->content && (*b)->content < (*a)->next->content)
+			{
+				ft_push(b,a);
+				ft_swap(*a);
+				break;
+			}	
+			ft_rotate(a);
+			i++;
+		}
+		while(i--)
+			ft_rrotate(a);
+	}
+	else
+	{
+		i = 1;
+		while(i < len)
+		{
+			if((*a)->content > (*b)->content && (*a)->prev->content < (*b)->content)
+			{
+				ft_push(b,a);
+				break ;
+			}
+			ft_rrotate(a);
+			i++;
+		}
+		while(i--)
+			ft_rotate(a);
+	}
+}
+///...................///
 int  main(int argc, char **argv)
 {
 	t_all	all;
@@ -529,13 +576,21 @@ int  main(int argc, char **argv)
 	ft_printstack_new(all.a);
 	ft_printf("STACK B:\n");
 	ft_printstack_new(all.b);
-	all.mov_b = ft_countmvb(ft_stacksize(all.b));
-	argc = ft_stacksize(all.a);
-	all.mov_a = ft_countmva(all.a,all.b,argc);
-	ft_convertmv(&all);
-	ft_printf("STACK B:\n");
-	ft_printstack_new(all.b);
-	ft_printf("dimensione a :%i\n",ft_stacksize(all.a));
+	while(all.b)
+	{
+		all.mov_b = ft_countmvb(ft_stacksize(all.b));
+		argc = ft_stacksize(all.a);
+		all.mov_a = ft_countmva(all.a,all.b,argc);
+		ft_convertmv(&all);
+		ft_printf("STACK B:\n");
+		ft_printstack_new(all.b);
+		ft_printf("dimensione a :%i\n",ft_stacksize(all.a));
+		ft_order(&all.a, &all.b, ft_stacksize(all.a));
+		ft_printf("\nstack A:\n");
+		ft_printstack_new(all.a);
+		ft_printf("STACK B:\n");
+		ft_printstack_new(all.b);
+	}	
 	ft_free_lst(&all.a);
 	ft_free_lst(&all.b);
 
