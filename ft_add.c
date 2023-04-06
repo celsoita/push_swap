@@ -595,7 +595,8 @@ int  main(int argc, char **argv)
 	all.b = NULL;
 	ft_printf("STACK A:\n");
 	ft_printstack_new(all.a);
-	if(all.len == 2 || all.len == 3)
+	arr = 0;
+	if(all.len < 4 )
 		ft_minialgo(&all.a,all.len);
 	else
 	{
