@@ -456,20 +456,15 @@ int	ft_checklessnum(int *arr,int len)
 	int	res;
 
 	res = arr[len];
-	while(len-- >= 0)
+	while(len >= 0)
 	{
 		if(arr[len] < res)
-			res = arr[len];	
+			res = arr[len];
+		len--;	
 	}
 	return(res);
 }
-//be positive a int 
-int	ft_positive(int num)
-{
-	if (num < 0)
-		num = -num;
-	return (num);
-}
+
 //this function convert count in mv
 void	ft_convertmv(t_all *stacks)
 {
@@ -487,10 +482,13 @@ void	ft_convertmv(t_all *stacks)
 	i = 0;
 	while(i < len)
 	{
-		naction[i] = mov_a[i] + ft_positive(mov_b[i]);
+		if (mov_b[i] < 0)
+			naction[i] = mov_a[i] + (-mov_b[i]);
+		else
+			naction[i] = mov_a[i] + mov_b[i];
 		i++;
 	}
-	start = ft_checklessnum(naction,len);
+	start = ft_checklessnum(naction,len-1);
 	i = 0;
 	while(naction[i] != start)
 		i++;
@@ -502,6 +500,7 @@ void	ft_convertmv(t_all *stacks)
 		else
 			ft_rotate(&stacks->b);
 	}
+	free(naction);
 }
 
 void	ft_order(t_stack **a, t_stack **b, int len)
@@ -547,6 +546,33 @@ void	ft_order(t_stack **a, t_stack **b, int len)
 			ft_rotate(a);
 	}
 }
+//mini algorithm for 2/3 number in stack
+void	ft_minialgo(t_stack **a,int len)
+{
+	if(len == 2)
+	{
+		if((*a)->content > (*a)->next->content)
+			ft_swap(*a);
+	}
+	else
+	{
+		//3 1 2
+		if((*a)->content > (*a)->prev->content && (*a)->content > (*a)->next->content && (*a)->next->content < (*a)->prev->content)
+			ft_rotate(a);
+		// 2 3 1
+		if ((*a)->content < (*a)->next->content && (*a)->prev->content < (*a)->next->content)
+			ft_rrotate(a);
+		// 1 3 2
+		if((*a)->content < (*a)->prev->content && (*a)->next->content > (*a)->prev->content)
+			ft_rrotate(a);
+		//3 2 1
+		if ((*a)->content > (*a)->next->content && (*a)->prev->content < (*a)->next->content)
+			ft_rotate(a);
+		// 2 1 3
+		if((*a)->content < (*a)->prev->content && (*a)->content > (*a)->next->content)
+			ft_swap(*a);
+	}
+}
 ///...................///
 int  main(int argc, char **argv)
 {
@@ -569,31 +595,41 @@ int  main(int argc, char **argv)
 	all.b = NULL;
 	ft_printf("STACK A:\n");
 	ft_printstack_new(all.a);
-	arr = ft_algorithm(all.a, argc,&argc);
-	ft_printf("sorm:%i\n",argc);
-	ft_pushorder(arr,&all,argc);
-	ft_printf("STACK A:\n");
-	ft_printstack_new(all.a);
-	ft_printf("STACK B:\n");
-	ft_printstack_new(all.b);
-	while(all.b)
+	if(all.len == 2 || all.len == 3)
+		ft_minialgo(&all.a,all.len);
+	else
 	{
-		all.mov_b = ft_countmvb(ft_stacksize(all.b));
-		argc = ft_stacksize(all.a);
-		all.mov_a = ft_countmva(all.a,all.b,argc);
-		ft_convertmv(&all);
-		ft_printf("STACK B:\n");
-		ft_printstack_new(all.b);
-		ft_printf("dimensione a :%i\n",ft_stacksize(all.a));
-		ft_order(&all.a, &all.b, ft_stacksize(all.a));
-		ft_printf("\nstack A:\n");
+		arr = ft_algorithm(all.a, argc,&argc);
+		ft_printf("sorm:%i\n",argc);
+		ft_pushorder(arr,&all,argc);
+		ft_printf("STACK A:\n");
 		ft_printstack_new(all.a);
 		ft_printf("STACK B:\n");
 		ft_printstack_new(all.b);
+		while(all.b)
+		{
+			all.mov_b = ft_countmvb(ft_stacksize(all.b));
+			argc = ft_stacksize(all.a);
+			all.mov_a = ft_countmva(all.a,all.b,argc);
+			ft_convertmv(&all);
+			ft_printf("STACK B:\n");
+			ft_printstack_new(all.b);
+			ft_printf("dimensione a :%i\n",ft_stacksize(all.a));
+			ft_order(&all.a, &all.b, ft_stacksize(all.a));
+			ft_printf("\nstack A:\n");
+			ft_printstack_new(all.a);
+			ft_printf("STACK B:\n");
+			ft_printstack_new(all.b);
+			free(all.mov_b);
+			free(all.mov_a);
+		}
 	}	
+	ft_printf("STACK A:\n");
+	ft_printstack_new(all.a);
 	ft_free_lst(&all.a);
 	ft_free_lst(&all.b);
 
 	ft_freematrix(temp);
-	free(arr);
+	if(arr)
+		free(arr);
 }
