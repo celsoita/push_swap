@@ -508,6 +508,12 @@ void	ft_order(t_stack **a, t_stack **b, int len)
 	int	i;
 
 	i = 0;
+	if((*b)->content > (*a)->prev->content)
+	{
+		ft_push(b,a);
+		ft_rotate(a);
+		return ;
+	}
 	if((*b)->content < (*a)->content)
 	{
 		ft_push(b,a);
