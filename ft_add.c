@@ -330,18 +330,21 @@ void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 {
 	int	i;
 	int	k;
-		
+	int	number;
+
 	i =  0;
 	k = 0;
-	(void) arr_len;
-	while(k < stack->len)
+	number = alg[i];
+	while(k < stack->len )
 	{
-		if(alg[i] != stack->a->content)
+		if(number != stack->a->content)
 			ft_push(&stack->a,&stack->b,'b');
 		else
 		{
 			ft_rotate(&stack->a,'a');
 			i++;
+			if(i == arr_len)
+				number = alg[i];
 		}
 			k++;
 	}
@@ -601,34 +604,33 @@ int  main(int argc, char **argv)
 	all.len = argc;
 	all.a = ft_createstack(argc,temp);
 	all.b = NULL;
-	//ft_printf("STACK A:\n");
-	//ft_printstack_new(all.a);
+	ft_printf("STACK A:\n");
+	ft_printstack_new(all.a);
 	arr = 0;
 	if(all.len < 4 )
 		ft_minialgo(&all.a,all.len);
 	else
 	{
 		arr = ft_algorithm(all.a, argc,&argc);
-		//ft_printf("sorm:%i\n",argc);
+		ft_printf("sorm:%i\n",argc);
 		ft_pushorder(arr,&all,argc);
-		//ft_printf("STACK A:\n");
-		//ft_printstack_new(all.a);
-		//ft_printf("STACK B:\n");
-		//ft_printstack_new(all.b);
+		ft_printf("STACK A:\n");
+		ft_printstack_new(all.a);
+		ft_printf("STACK B:\n");
+		ft_printstack_new(all.b);
 		while(all.b)
 		{
 			all.mov_b = ft_countmvb(ft_stacksize(all.b));
-			argc = ft_stacksize(all.a);
-			all.mov_a = ft_countmva(all.a,all.b,argc);
+			all.mov_a = ft_countmva(all.a,all.b, ft_stacksize(all.b));
 			ft_convertmv(&all);
-			//ft_printf("STACK B:\n");
-			//ft_printstack_new(all.b);
-			//ft_printf("dimensione a :%i\n",ft_stacksize(all.a));
+			ft_printf("STACK B:\n");
+			ft_printstack_new(all.b);
+			ft_printf("dimensione a :%i\n",ft_stacksize(all.a));
 			ft_order(&all.a, &all.b, ft_stacksize(all.a));
-			//ft_printf("\nstack A:\n");
-			//ft_printstack_new(all.a);
-			//ft_printf("STACK B:\n");
-			//ft_printstack_new(all.b);
+			ft_printf("\nstack A:\n");
+			ft_printstack_new(all.a);
+			ft_printf("STACK B:\n");
+			ft_printstack_new(all.b);
 			free(all.mov_b);
 			free(all.mov_a);
 		}
