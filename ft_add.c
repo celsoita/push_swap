@@ -1,58 +1,58 @@
 #include "push_swap.h"
 #include "libft/libft.h"
-//check arg for see in are only number
-int ft_checknum(int argc, char **argv)
-{
-	int	i;
-	int	c;
-	i = 0;
-	c = 0;
-	//2 3 4 - 3v 1c
-	// devo scorrere argv se in esso c'e' solo una lettera return 1
-	while(c < argc)
-	{
-		i = 0;
-		while(argv[c][i])
-		{
-			if(ft_isdigit(argv[c][i])!= 1 && argv[c][i] != '-' && argv[c][i] != '+')
-				return(1);
-			i++;
-		}	
-		c++;
-	}
-	return(0);
-}
-//check double number
-int	ft_checkarg(int argc, char **argv)
-{
-	int	c;
-	int	*arr;
-	int	n;
-	int	i;
-	c = 0;
-	n = 0;	
-	i = 0;
-	n = ft_atoi(argv[c]);
-	arr = malloc(sizeof(int) * argc);
-	while(c < argc)
-	{
-		n = ft_atoi(argv[c]);
-		arr[c] = n;
-		i = c - 1;
-		while(i >= 0)
-	  	{	
-	  		if(arr[i] == n)
-	  		{
-				free(arr);
-				return(1); //if equal 1 give error
-			}	
-		i--;
-		}
-		c++;
-	}
-	free(arr);
-	return(0);
-}
+// //check arg for see in are only number
+// int ft_checknum(int argc, char **argv)
+// {
+// 	int	i;
+// 	int	c;
+// 	i = 0;
+// 	c = 0;
+// 	//2 3 4 - 3v 1c
+// 	// devo scorrere argv se in esso c'e' solo una lettera return 1
+// 	while(c < argc)
+// 	{
+// 		i = 0;
+// 		while(argv[c][i])
+// 		{
+// 			if(ft_isdigit(argv[c][i])!= 1 && argv[c][i] != '-' && argv[c][i] != '+')
+// 				return(1);
+// 			i++;
+// 		}	
+// 		c++;
+// 	}
+// 	return(0);
+// }
+// //check double number
+// int	ft_checkarg(int argc, char **argv)
+// {
+// 	int	c;
+// 	int	*arr;
+// 	int	n;
+// 	int	i;
+// 	c = 0;
+// 	n = 0;	
+// 	i = 0;
+// 	n = ft_atoi(argv[c]);
+// 	arr = malloc(sizeof(int) * argc);
+// 	while(c < argc)
+// 	{
+// 		n = ft_atoi(argv[c]);
+// 		arr[c] = n;
+// 		i = c - 1;
+// 		while(i >= 0)
+// 	  	{	
+// 	  		if(arr[i] == n)
+// 	  		{
+// 				free(arr);
+// 				return(1); //if equal 1 give error
+// 			}	
+// 		i--;
+// 		}
+// 		c++;
+// 	}
+// 	free(arr);
+// 	return(0);
+// }
 // create node and add to the next
 t_stack	*ft_add(t_stack *prev, int n)
 {
@@ -116,66 +116,66 @@ t_stack	*ft_createstack(int argc, char **argv)
 	temp->next = lst;
 	return(lst);
 }
-// this function swap the first 2 element in the list
-void	ft_swap(t_stack *lst,char name)
-{
-	int	temp;
-	temp = lst->content;
-	lst->content = lst->next->content;
-	lst->next->content = temp;
-	ft_printf("s%c\n",name);
-}
-// this function rotate stack 
-void	ft_rotate(t_stack **lst,char name)
-{
-		if(!*lst || (*lst)->next == *lst)
-			return ;
-		 *lst = (*lst)->next;
-		ft_printf("r%c\n",name);
-}
-// this function rotate stack in reverse order
-void ft_rrotate(t_stack **lst,char name)
-{
-		if(!*lst || (*lst)->prev == *lst)
-			return ;
-		*lst = (*lst)->prev;
-		ft_printf("rr%c\n",name);
-
-}
+// // this function swap the first 2 element in the list
+// void	ft_swap(t_stack *lst,char name)
+// {
+// 	int	temp;
+// 	temp = lst->content;
+// 	lst->content = lst->next->content;
+// 	lst->next->content = temp;
+// 	ft_printf("s%c\n",name);
+// }
+// // this function rotate stack 
+// void	ft_rotate(t_stack **lst,char name)
+// {
+// 		if(!*lst || (*lst)->next == *lst)
+// 			return ;
+// 		 *lst = (*lst)->next;
+// 		ft_printf("r%c\n",name);
+// }
+// // this function rotate stack in reverse order
+// void ft_rrotate(t_stack **lst,char name)
+// {
+// 		if(!*lst || (*lst)->prev == *lst)
+// 			return ;
+// 		*lst = (*lst)->prev;
+// 		ft_printf("rr%c\n",name);
+//
+// }
 // this function rotate stack and in reverse order
 void	ft_rrr(t_stack **lsta, t_stack **lstb)
 {
 	ft_rrotate(lsta,'a');
 	ft_rrotate(lstb,'b');
 }
-// this function push the first element in stack_in to stack_out
-void	ft_push(t_stack **stack_in, t_stack **stack_out,char n)
-{
-		t_stack	*temp;
-
-		if(stack_in == NULL)
-		 	return ;
-		temp = (*stack_in)->next;
-		if((*stack_in)->next == *stack_in)
-			temp = NULL;
-		(*stack_in)->next->prev = (*stack_in)->prev; 
-		(*stack_in)->prev->next = temp;
-		if(*stack_out)
-		{
-			(*stack_in)->next = *stack_out;
-			(*stack_in)->prev = (*stack_out)->prev;
-			(*stack_out)->prev->next = *stack_in;
-			(*stack_out)->prev = *stack_in;
-		}
-		else
-		{
-			(*stack_in)->prev = *stack_in;
-			(*stack_in)->next = *stack_in;
-		}
-		*stack_out = *stack_in;
-		*stack_in = temp;
-		ft_printf("p%c\n",n);
-}
+// // this function push the first element in stack_in to stack_out
+// void	ft_push(t_stack **stack_in, t_stack **stack_out,char n)
+// {
+// 		t_stack	*temp;
+//
+// 		if(stack_in == NULL)
+// 		 	return ;
+// 		temp = (*stack_in)->next;
+// 		if((*stack_in)->next == *stack_in)
+// 			temp = NULL;
+// 		(*stack_in)->next->prev = (*stack_in)->prev; 
+// 		(*stack_in)->prev->next = temp;
+// 		if(*stack_out)
+// 		{
+// 			(*stack_in)->next = *stack_out;
+// 			(*stack_in)->prev = (*stack_out)->prev;
+// 			(*stack_out)->prev->next = *stack_in;
+// 			(*stack_out)->prev = *stack_in;
+// 		}
+// 		else
+// 		{
+// 			(*stack_in)->prev = *stack_in;
+// 			(*stack_in)->next = *stack_in;
+// 		}
+// 		*stack_out = *stack_in;
+// 		*stack_in = temp;
+// 		ft_printf("p%c\n",n);
+// }
 // this function free the list
 void	ft_free_lst(t_stack **lst)
 {
@@ -203,40 +203,40 @@ char	**ft_checkarr(int *argc,char *str)
 	*argc = i;
 	return(res);
 }
-//if the char is present in array return 1 u can use it for comparison with - || +
-int	ft_char_in_array(char c, char *str)
-{
-		while(*str)
-		{
-			if(c == *str)
-			return(1);
-			str++;
-		}
-	return(0);
-}
-//this function check if present in array  "-" " +"
-int	ft_strlarg(int argc, char **str)
-{
-	int j;
-	int	i;
-	int	k;
-		j = 0;
-			k = 0;
-			while(k < argc)
-			{
-				i=0;
-				if (ft_char_in_array(str[k][i], "-+") && !ft_char_in_array(str[k][i+1],"-+") && str[k][i+1])
-					i++;
-				while(str[k][i] >='0' && str[k][i] <= '9')
-					i++;
-				if(i > 0)
-					j++;
-				k++;
-			}
-			if(j == argc)
-				return(0);
-	return(1);
-}
+// //if the char is present in array return 1 u can use it for comparison with - || +
+// int	ft_char_in_array(char c, char *str)
+// {
+// 		while(*str)
+// 		{
+// 			if(c == *str)
+// 			return(1);
+// 			str++;
+// 		}
+// 	return(0);
+// }
+// //this function check if present in array  "-" " +"
+// int	ft_strlarg(int argc, char **str)
+// {
+// 	int j;
+// 	int	i;
+// 	int	k;
+// 		j = 0;
+// 			k = 0;
+// 			while(k < argc)
+// 			{
+// 				i=0;
+// 				if (ft_char_in_array(str[k][i], "-+") && !ft_char_in_array(str[k][i+1],"-+") && str[k][i+1])
+// 					i++;
+// 				while(str[k][i] >='0' && str[k][i] <= '9')
+// 					i++;
+// 				if(i > 0)
+// 					j++;
+// 				k++;
+// 			}
+// 			if(j == argc)
+// 				return(0);
+// 	return(1);
+// }
 //take content at position of lst
 int	ft_checknode(t_stack *lst, int pos)
 {
@@ -343,7 +343,7 @@ void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 		{
 			ft_rotate(&stack->a,'a');
 			i++;
-			if(i == arr_len)
+			if(i < arr_len)
 				number = alg[i];
 		}
 			k++;
@@ -603,7 +603,8 @@ int  main(int argc, char **argv)
 	if(argc <= 0 || ft_checkarg(argc,temp) || ft_checknum(argc,temp) || ft_strlarg(argc, temp))
 	{
 		ft_printf("error\n");
-		ft_freematrix(temp);
+		if(noarray == 1)
+			ft_freematrix(temp);
 		return(0);
 	}
 	all.len = argc;
@@ -628,14 +629,11 @@ int  main(int argc, char **argv)
 			all.mov_b = ft_countmvb(ft_stacksize(all.b));
 			all.mov_a = ft_countmva(all.a,all.b, ft_stacksize(all.b));
 			ft_convertmv(&all);
-			//ft_printf("STACK B:\n");
-			//ft_printstack_new(all.b);
-			//ft_printf("dimensione a :%i\n",ft_stacksize(all.a));
-			ft_order(&all.a, &all.b, ft_stacksize(all.a));
 			//ft_printf("\nstack A:\n");
 			//ft_printstack_new(all.a);
 			//ft_printf("STACK B:\n");
 			//ft_printstack_new(all.b);
+			ft_order(&all.a, &all.b, ft_stacksize(all.a));
 			free(all.mov_b);
 			free(all.mov_a);
 		}
