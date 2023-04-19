@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/19 15:06:04 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/19 16:26:16 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ typedef struct s_all
 	t_stack	*b;
 	int		*mov_a;
 	int		*mov_b;
+	int		*fmov_a;
+	int		*fmov_b;
 }	t_all;
 
 //ft_check_error
@@ -53,5 +55,11 @@ int	ft_checknode(t_stack *lst, int pos);
 int	*ft_fillarr(t_stack *lst, int *res, int pos);
 int	*ft_algorithm(t_stack *lst, int argc, int *len_arr);
 void	ft_minialgo(t_stack **a, int len);
+//ft_mvorder.c
+void	ft_pushorder(int *alg, t_all *stack, int arr_len);
+int	ft_calculatemv(t_stack *a, t_stack *b, t_stack *start, int temp);
+int	*ft_countmva(t_stack *a, t_stack *b, int len);
+int	*ft_countmvb(int len);
+void	ft_convertmv(t_all *stacks);
 
 #endif
