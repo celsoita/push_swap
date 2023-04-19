@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/19 14:36:10 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/19 15:06:04 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,5 +48,10 @@ t_stack	*ft_add(t_stack *prev, int n);
 void	ft_printstack_new(t_stack *lst);
 void	ft_printstack_rnew(t_stack *lst);
 t_stack	*ft_createstack(int argc, char **argv);
+//ft_algorithm
+int	ft_checknode(t_stack *lst, int pos);
+int	*ft_fillarr(t_stack *lst, int *res, int pos);
+int	*ft_algorithm(t_stack *lst, int argc, int *len_arr);
+void	ft_minialgo(t_stack **a, int len);
 
 #endif

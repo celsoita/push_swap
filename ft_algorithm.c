@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 09:54:19 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/19 14:38:47 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/19 15:10:20 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	*ft_algorithm(t_stack *lst, int argc, int *len_arr)
 	i = 0;
 	while (i < argc)
 		arr[i++] = 1;
-	while (end->next != lst)
+	while (lst->end->next != lst)
 	{
 		lst->start = lst;
 		i = 0;
