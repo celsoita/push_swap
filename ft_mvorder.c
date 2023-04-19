@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:14:29 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/19 16:26:13 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/19 21:20:13 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,16 +131,14 @@ void	ft_convertmv(t_all *stacks)
 	int	start;
 
 	len = ft_stacksize(stacks->b);
-	stacks->fmov_a = stacks->mov_a;
-	stacks->fmov_b = stacks->mov_b;
 	naction = malloc(sizeof(int) * len);
 	i = 0;
 	while (i < len)
 	{
-		if (stacks->fmov_b[i] < 0)
-			naction[i] = stacks->fmov_a[i] + (stacks->(-fmov_b[i]));
+		if (stacks->mov_b[i] < 0)
+			naction[i] = stacks->mov_a[i] + (-stacks->mov_b[i]);
 		else
-			naction[i] = mov_a[i] + mov_b[i];
+			naction[i] = stacks->mov_a[i] + stacks->mov_b[i];
 		i++;
 	}
 	start = ft_checklessnum(naction, len - 1);
@@ -150,7 +148,7 @@ void	ft_convertmv(t_all *stacks)
 	start = 0;
 	while (start++ < i)
 	{
-		if (stacks->fmov_b[i] < 0)
+		if (stacks->mov_b[i] < 0)
 			ft_rrotate(&stacks->b, 'b');
 		else
 			ft_rotate(&stacks->b, 'b');

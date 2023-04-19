@@ -187,21 +187,21 @@
 // 		*stack_in = temp;
 // 		ft_printf("p%c\n",n);
 // }
-// this function free the list
-void	ft_free_lst(t_stack **lst)
-{
-	t_stack *temp;
+// // this function free the list
+// void	ft_free_lst(t_stack **lst)
+// {
+// 	t_stack *temp;
 
-	if(!*lst)
-		return ;
-	(*lst)->prev->next = NULL;
-	while(*lst)
-	{
-		temp = (*lst)->next;
-		free(*lst);
-		*lst = temp;
-	}	
-}
+// 	if(!*lst)
+// 		return ;
+// 	(*lst)->prev->next = NULL;
+// 	while(*lst)
+// 	{
+// 		temp = (*lst)->next;
+// 		free(*lst);
+// 		*lst = temp;
+// 	}	
+// }
 // //this function is a check for accept  the string and create a matrix for it for example " 1 2 3" be a "1" "2" "3"
 // char	**ft_checkarr(int *argc,char *str)
 // {
@@ -424,32 +424,32 @@ void	ft_free_lst(t_stack **lst)
 // 	res[k] = ft_calculatemv(a, b, a, len);
 // 	return(res);
 // }
-//this function count the size of stack
-int	ft_stacksize(t_stack *stack)
-{
-	t_stack *temp;
-	int 	i;
-	temp = stack->next;
-	i = 1;
-	while(temp != stack)
-	{
-		temp = temp->next;
-		i++; 
-	}
-	return(i);
-}
-// this function free the matrix 
-void ft_freematrix(char **matrix)
-{
-	int	i;
-	i = 0;
-	while(matrix[i])
-	{	
-		free(matrix[i]);
-		i++;
-	}
-	free(matrix);
-}
+// //this function count the size of stack
+// int	ft_stacksize(t_stack *stack)
+// {
+// 	t_stack *temp;
+// 	int 	i;
+// 	temp = stack->next;
+// 	i = 1;
+// 	while(temp != stack)
+// 	{
+// 		temp = temp->next;
+// 		i++; 
+// 	}
+// 	return(i);
+// }
+// // this function free the matrix 
+// void ft_freematrix(char **matrix)
+// {
+// 	int	i;
+// 	i = 0;
+// 	while(matrix[i])
+// 	{	
+// 		free(matrix[i]);
+// 		i++;
+// 	}
+// 	free(matrix);
+// }
 // // this function count the movement necessary for move the element in the first position
 // int	*ft_countmvb(int len)
 // {
@@ -466,20 +466,20 @@ void ft_freematrix(char **matrix)
 // 		res[i++] = c++ - len;
 // 	return(res);
 // }
-//search the less num in array iny
-int	ft_checklessnum(int *arr,int len)
-{
-	int	res;
+// //search the less num in array iny
+// int	ft_checklessnum(int *arr,int len)
+// {
+// 	int	res;
 
-	res = arr[len];
-	while(len >= 0)
-	{
-		if(arr[len] < res)
-			res = arr[len];
-		len--;	
-	}
-	return(res);
-}
+// 	res = arr[len];
+// 	while(len >= 0)
+// 	{
+// 		if(arr[len] < res)
+// 			res = arr[len];
+// 		len--;	
+// 	}
+// 	return(res);
+// }
 
 // //this function convert count in mv
 // void	ft_convertmv(t_all *stacks)
@@ -519,55 +519,55 @@ int	ft_checklessnum(int *arr,int len)
 // 	free(naction);
 // }
 
-void	ft_order(t_stack **a, t_stack **b, int len)
-{
-	int	i;
+// void	ft_order(t_stack **a, t_stack **b, int len)
+// {
+// 	int	i;
 
-	i = 0;
-	if((*b)->content > (*a)->prev->content)
-	{
-		ft_push(b,a,'a');
-		ft_rotate(a,'a');
-		return ;
-	}
-	if((*b)->content < (*a)->content)
-	{
-		ft_push(b,a,'a');
-		return ;
-	}
-	if(ft_checknode(*a,len/2) > (*b)->content)
-	{
-		while(i < len)
-		{
-			if((*b)->content > (*a)->content && (*b)->content < (*a)->next->content)
-			{
-				ft_push(b,a,'a');
-				ft_swap(*a,'a');
-				break;
-			}	
-			ft_rotate(a,'a');
-			i++;
-		}
-		while(i--)
-			ft_rrotate(a,'a');
-	}
-	else
-	{
-		i = 1;
-		while(i < len)
-		{
-			if((*a)->content > (*b)->content && (*a)->prev->content < (*b)->content)
-			{
-				ft_push(b,a,'a');
-				break ;
-			}
-			ft_rrotate(a,'a');
-			i++;
-		}
-		while(i--)
-			ft_rotate(a,'a');
-	}
-}
+// 	i = 0;
+// 	if((*b)->content > (*a)->prev->content)
+// 	{
+// 		ft_push(b,a,'a');
+// 		ft_rotate(a,'a');
+// 		return ;
+// 	}
+// 	if((*b)->content < (*a)->content)
+// 	{
+// 		ft_push(b,a,'a');
+// 		return ;
+// 	}
+// 	if(ft_checknode(*a,len/2) > (*b)->content)
+// 	{
+// 		while(i < len)
+// 		{
+// 			if((*b)->content > (*a)->content && (*b)->content < (*a)->next->content)
+// 			{
+// 				ft_push(b,a,'a');
+// 				ft_swap(*a,'a');
+// 				break;
+// 			}	
+// 			ft_rotate(a,'a');
+// 			i++;
+// 		}
+// 		while(i--)
+// 			ft_rrotate(a,'a');
+// 	}
+// 	else
+// 	{
+// 		i = 1;
+// 		while(i < len)
+// 		{
+// 			if((*a)->content > (*b)->content && (*a)->prev->content < (*b)->content)
+// 			{
+// 				ft_push(b,a,'a');
+// 				break ;
+// 			}
+// 			ft_rrotate(a,'a');
+// 			i++;
+// 		}
+// 		while(i--)
+// 			ft_rotate(a,'a');
+// 	}
+// }
 // //mini algorithm for 2/3 number in stack
 // void	ft_minialgo(t_stack **a,int len)
 // {
