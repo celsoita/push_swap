@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/19 12:19:37 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/19 14:36:10 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_stack
 	int				content;
 	struct s_stack	*prev;
 	struct s_stack	*next;
+	struct s_stack	*end;
+	struct s_stack	*start;
 }	t_stack;
 
 typedef struct s_all

@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 09:54:19 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/19 12:19:34 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/19 14:38:47 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,37 +39,35 @@ int	*ft_algorithm(t_stack *lst, int argc, int *len_arr)
 	int	*res;
 	int	*arr;
 	int	lenght;
-	t_stack	*end;
-	t_stack	*start;
 
 	arr = malloc(sizeof(int) * argc);
-	end = lst;
+	lst->end = lst;
 	k = 0;
 	i = 0;
 	while (i < argc)
 		arr[i++] = 1;
 	while (end->next != lst)
 	{
-		start = lst;
+		lst->start = lst;
 		i = 0;
-		while (start != end)
+		while (lst->start != lst->end)
 		{
-			if (start->content < end->content && arr[k] <= arr[i])
+			if (lst->start->content < lst->end->content && arr[k] <= arr[i])
 				arr[k] = arr[i] + 1;
 			i++;
-			start = start ->next;
+			lst->start = lst->start ->next;
 		}
-		end = end->next;
+		lst->end = lst->end->next;
 		k++;
 	}
-	start = lst;
+	lst->start = lst;
 	i = 0;
-	while (start != end)
+	while (lst->start != lst->end)
 	{
-		if (start->content < end->content && arr[k] <= arr[i])
+		if (lst->start->content < lst->end->content && arr[k] <= arr[i])
 			arr[k] = arr[i] + 1;
 		i++;
-		start = start ->next;
+		lst->start = lst->start ->next;
 	}
 	lenght = 0;
 	i = 0;
@@ -90,7 +88,7 @@ int	*ft_algorithm(t_stack *lst, int argc, int *len_arr)
 	}
 	k = lenght - 1;
 	res[--lenght] = i;
-	while (lenght > 0)	
+	while (lenght > 0)
 	{
 		if (arr[i] == lenght && \
 		ft_checknode(lst, i) < ft_checknode(lst, res[lenght]))
