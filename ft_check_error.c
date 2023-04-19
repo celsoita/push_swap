@@ -102,3 +102,18 @@ int	ft_strlarg(int argc, char **str)
 		return (0);
 	return (1);
 }
+
+//this function is a check for accept  
+//the string and create a matrix for it for example " 1 2 3" be a "1" "2" "3"
+char	**ft_checkarr(int *argc, char *str)
+{
+	char	**res;
+	int		i;
+
+	res = ft_split(str, ' ');
+	i = 0;
+	while (res[i])
+		i++;
+	*argc = i;
+	return (res);
+}

@@ -54,68 +54,68 @@
 // 	return(0);
 // }
 // create node and add to the next
-t_stack	*ft_add(t_stack *prev, int n)
-{
-	t_stack *node;
+// t_stack	*ft_add(t_stack *prev, int n)
+// {
+// 	t_stack *node;
 	
-	node = malloc(sizeof(t_stack));
-	node->prev = prev;
-	node->next = NULL;
-	node->content = n;
-	return(node);
-}
-//print stack (print list)
-void	ft_printstack_new(t_stack *lst)
-{
-	t_stack	*temp;
+// 	node = malloc(sizeof(t_stack));
+// 	node->prev = prev;
+// 	node->next = NULL;
+// 	node->content = n;
+// 	return(node);
+// }
+// //print stack (print list)
+// void	ft_printstack_new(t_stack *lst)
+// {
+// 	t_stack	*temp;
 
-	if(!lst)
-	return ;
-	temp = lst;
-	while (temp->next != lst)
-		{
-			ft_printf("%d\n",temp->content);
-			temp = temp->next;
-		}
-		ft_printf("%d\n",temp->content);
-}
-// reverse print stack
-void	ft_printstack_rnew(t_stack *lst)
-{
-	t_stack	*temp;
+// 	if(!lst)
+// 	return ;
+// 	temp = lst;
+// 	while (temp->next != lst)
+// 		{
+// 			ft_printf("%d\n",temp->content);
+// 			temp = temp->next;
+// 		}
+// 		ft_printf("%d\n",temp->content);
+// }
+// // reverse print stack
+// void	ft_printstack_rnew(t_stack *lst)
+// {
+// 	t_stack	*temp;
 
-	if(!lst)
-	return ;
-	temp = lst->prev;
-	while (temp != lst)
-		{
-			ft_printf("%d\n",temp->content);
-			temp = temp->prev;
-		}
-		ft_printf("%d\n",temp->content);
-}
-//this function create stack and we need a len = argc , and argument = argv and return all the stack
-t_stack	*ft_createstack(int argc, char **argv)
-{
-	t_stack *lst;
-	t_stack *temp;
-	int	i;
-	int	n;
+// 	if(!lst)
+// 	return ;
+// 	temp = lst->prev;
+// 	while (temp != lst)
+// 		{
+// 			ft_printf("%d\n",temp->content);
+// 			temp = temp->prev;
+// 		}
+// 		ft_printf("%d\n",temp->content);
+// }
+// //this function create stack and we need a len = argc , and argument = argv and return all the stack
+// t_stack	*ft_createstack(int argc, char **argv)
+// {
+// 	t_stack *lst;
+// 	t_stack *temp;
+// 	int	i;
+// 	int	n;
 
-	i = 0;
-	n = ft_atoi(argv[i]);
-	lst = ft_add(NULL,n);
-	temp = lst;
-	while(++i < argc)
-	{
-		n = ft_atoi(argv[i]);
-		temp->next = ft_add(temp,n);
-		temp = temp->next;
-	}
-	lst->prev = temp;
-	temp->next = lst;
-	return(lst);
-}
+// 	i = 0;
+// 	n = ft_atoi(argv[i]);
+// 	lst = ft_add(NULL,n);
+// 	temp = lst;
+// 	while(++i < argc)
+// 	{
+// 		n = ft_atoi(argv[i]);
+// 		temp->next = ft_add(temp,n);
+// 		temp = temp->next;
+// 	}
+// 	lst->prev = temp;
+// 	temp->next = lst;
+// 	return(lst);
+// }
 // // this function swap the first 2 element in the list
 // void	ft_swap(t_stack *lst,char name)
 // {
@@ -143,11 +143,11 @@ t_stack	*ft_createstack(int argc, char **argv)
 //
 // }
 // this function rotate stack and in reverse order
-void	ft_rrr(t_stack **lsta, t_stack **lstb)
-{
-	ft_rrotate(lsta,'a');
-	ft_rrotate(lstb,'b');
-}
+// void	ft_rrr(t_stack **lsta, t_stack **lstb)
+// {
+// 	ft_rrotate(lsta,'a');
+// 	ft_rrotate(lstb,'b');
+// }
 // // this function push the first element in stack_in to stack_out
 // void	ft_push(t_stack **stack_in, t_stack **stack_out,char n)
 // {
@@ -169,7 +169,18 @@ void	ft_rrr(t_stack **lsta, t_stack **lstb)
 // 		}
 // 		else
 // 		{
-// 			(*stack_in)->prev = *stack_in;
+// 			(*stack_in)->pr//this function is a check for accept  the string and create a matrix for it for example " 1 2 3" be a "1" "2" "3"
+// char	**ft_checkarr(int *argc,char *str)
+// {
+// 	char	**res;
+// 	int		i;
+// 	res = ft_split(str,' ');
+// 	i = 0;
+// 	while(res[i])
+// 		i++;
+// 	*argc = i;
+// 	return(res);
+// }v = *stack_in;
 // 			(*stack_in)->next = *stack_in;
 // 		}
 // 		*stack_out = *stack_in;
@@ -191,18 +202,18 @@ void	ft_free_lst(t_stack **lst)
 		*lst = temp;
 	}	
 }
-//this function is a check for accept  the string and create a matrix for it for example " 1 2 3" be a "1" "2" "3"
-char	**ft_checkarr(int *argc,char *str)
-{
-	char	**res;
-	int		i;
-	res = ft_split(str,' ');
-	i = 0;
-	while(res[i])
-		i++;
-	*argc = i;
-	return(res);
-}
+// //this function is a check for accept  the string and create a matrix for it for example " 1 2 3" be a "1" "2" "3"
+// char	**ft_checkarr(int *argc,char *str)
+// {
+// 	char	**res;
+// 	int		i;
+// 	res = ft_split(str,' ');
+// 	i = 0;
+// 	while(res[i])
+// 		i++;
+// 	*argc = i;
+// 	return(res);
+// }
 // //if the char is present in array return 1 u can use it for comparison with - || +
 // int	ft_char_in_array(char c, char *str)
 // {
@@ -237,94 +248,94 @@ char	**ft_checkarr(int *argc,char *str)
 // 				return(0);
 // 	return(1);
 // }
-//take content at position of lst
-int	ft_checknode(t_stack *lst, int pos)
-{
-		while(pos-- > 0)
-			lst = lst->next;
-		return(lst->content);	
-}
-//fill an array with stack content
-int	*ft_fillarr(t_stack *lst, int *res,int pos)
-{
-	while(pos >= 0)
-	{
-		res[pos] = ft_checknode(lst,res[pos]);
-		pos--;
-	}
-	return(res);
-}
-//its a LIS algorithm
-int *ft_algorithm(t_stack *lst,int argc, int *len_arr)
-{
-	int	i;
-	int k;
-	int	*res;
-	int *arr;
-	int lenght;
-	t_stack	*end;
-	t_stack	*start;
+// //take content at position of lst
+// int	ft_checknode(t_stack *lst, int pos)
+// {
+// 		while(pos-- > 0)
+// 			lst = lst->next;
+// 		return(lst->content);	
+// }
+// //fill an array with stack content
+// int	*ft_fillarr(t_stack *lst, int *res,int pos)
+// {
+// 	while(pos >= 0)
+// 	{
+// 		res[pos] = ft_checknode(lst,res[pos]);
+// 		pos--;
+// 	}
+// 	return(res);
+// }
+// //its a LIS algorithm
+// int *ft_algorithm(t_stack *lst,int argc, int *len_arr)
+// {
+// 	int	i;
+// 	int k;
+// 	int	*res;
+// 	int *arr;
+// 	int lenght;
+// 	t_stack	*end;
+// 	t_stack	*start;
 
-	arr = malloc(sizeof(int) * argc);
-	end = lst;
-	k = 0;//2//4//6//1//9
-	i = 0;
-	while(i < argc)
-		arr[i++] = 1;
-	while(end->next != lst)
-	{
-		start = lst;
-		i = 0;
-		while(start != end)
-		{
-			if(start->content < end->content && arr[k] <= arr[i])
-				arr[k] = arr[i] + 1;
-			i++;
-			start = start ->next;
-		}
-			end = end->next;
-		k++;
-		////////
-	}// questa e' la lunghezza della subsequence
-	start = lst;
-		i = 0;
-		while(start != end)
-		{
-			if(start->content < end->content && arr[k] <= arr[i])
-				arr[k] = arr[i] + 1;
-			i++;
-			start = start ->next;
-		}
-		// qua finisce !
-		lenght = 0;
-		i = 0;
-		while( i < argc)
-		{
-			if(arr[i] > lenght)
-				lenght = arr[i];
-			i++;
-		} 
-		res = malloc(sizeof(int) * lenght);
-		i = argc-1; 
-		*len_arr = lenght;
-		while(i > 0)
-		{
-			if(lenght == arr[i])
-				break;
-			i--;
-		}
-	k = lenght - 1;
-	res[--lenght] = i;
-	while(lenght > 0)	
-	{
-		if(arr[i] == lenght && ft_checknode(lst,i) < ft_checknode(lst,res[lenght]))
-			res[--lenght] = i;
-		i--;
-	}
-	res = ft_fillarr(lst,res,k);
-	free(arr);
-	return(res);	
-}
+// 	arr = malloc(sizeof(int) * argc);
+// 	end = lst;
+// 	k = 0;//2//4//6//1//9
+// 	i = 0;
+// 	while(i < argc)
+// 		arr[i++] = 1;
+// 	while(end->next != lst)
+// 	{
+// 		start = lst;
+// 		i = 0;
+// 		while(start != end)
+// 		{
+// 			if(start->content < end->content && arr[k] <= arr[i])
+// 				arr[k] = arr[i] + 1;
+// 			i++;
+// 			start = start ->next;
+// 		}
+// 			end = end->next;
+// 		k++;
+// 		////////
+// 	}// questa e' la lunghezza della subsequence
+// 	start = lst;
+// 		i = 0;
+// 		while(start != end)
+// 		{
+// 			if(start->content < end->content && arr[k] <= arr[i])
+// 				arr[k] = arr[i] + 1;
+// 			i++;
+// 			start = start ->next;
+// 		}
+// 		// qua finisce !
+// 		lenght = 0;
+// 		i = 0;
+// 		while( i < argc)
+// 		{
+// 			if(arr[i] > lenght)
+// 				lenght = arr[i];
+// 			i++;
+// 		} 
+// 		res = malloc(sizeof(int) * lenght);
+// 		i = argc-1; 
+// 		*len_arr = lenght;
+// 		while(i > 0)
+// 		{
+// 			if(lenght == arr[i])
+// 				break;
+// 			i--;
+// 		}
+// 	k = lenght - 1;
+// 	res[--lenght] = i;
+// 	while(lenght > 0)	
+// 	{
+// 		if(arr[i] == lenght && ft_checknode(lst,i) < ft_checknode(lst,res[lenght]))
+// 			res[--lenght] = i;
+// 		i--;
+// 	}
+// 	res = ft_fillarr(lst,res,k);
+// 	free(arr);
+// 	return(res);	
+// }
 //this function check the number in stack and push the element not in order in b ... remaining stack a in order
 void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 {
@@ -557,33 +568,33 @@ void	ft_order(t_stack **a, t_stack **b, int len)
 			ft_rotate(a,'a');
 	}
 }
-//mini algorithm for 2/3 number in stack
-void	ft_minialgo(t_stack **a,int len)
-{
-	if(len == 2)
-	{
-		if((*a)->content > (*a)->next->content)
-			ft_swap(*a,'a');
-	}
-	else
-	{
-		//3 1 2
-		if((*a)->content > (*a)->prev->content && (*a)->content > (*a)->next->content && (*a)->next->content < (*a)->prev->content)
-			ft_rotate(a,'a');
-		// 2 3 1
-		if ((*a)->content < (*a)->next->content && (*a)->prev->content < (*a)->next->content)
-			ft_rrotate(a,'a');
-		// 1 3 2
-		if((*a)->content < (*a)->prev->content && (*a)->next->content > (*a)->prev->content)
-			ft_rrotate(a,'a');
-		//3 2 1
-		if ((*a)->content > (*a)->next->content && (*a)->prev->content < (*a)->next->content)
-			ft_rotate(a,'a');
-		// 2 1 3
-		if((*a)->content < (*a)->prev->content && (*a)->content > (*a)->next->content)
-			ft_swap(*a,'a');
-	}
-}
+// //mini algorithm for 2/3 number in stack
+// void	ft_minialgo(t_stack **a,int len)
+// {
+// 	if(len == 2)
+// 	{
+// 		if((*a)->content > (*a)->next->content)
+// 			ft_swap(*a,'a');
+// 	}
+// 	else
+// 	{
+// 		//3 1 2
+// 		if((*a)->content > (*a)->prev->content && (*a)->content > (*a)->next->content && (*a)->next->content < (*a)->prev->content)
+// 			ft_rotate(a,'a');
+// 		// 2 3 1
+// 		if ((*a)->content < (*a)->next->content && (*a)->prev->content < (*a)->next->content)
+// 			ft_rrotate(a,'a');
+// 		// 1 3 2
+// 		if((*a)->content < (*a)->prev->content && (*a)->next->content > (*a)->prev->content)
+// 			ft_rrotate(a,'a');
+// 		//3 2 1
+// 		if ((*a)->content > (*a)->next->content && (*a)->prev->content < (*a)->next->content)
+// 			ft_rotate(a,'a');
+// 		// 2 1 3
+// 		if((*a)->content < (*a)->prev->content && (*a)->content > (*a)->next->content)
+// 			ft_swap(*a,'a');
+// 	}
+// }
 ///...................///
 int  main(int argc, char **argv)
 {

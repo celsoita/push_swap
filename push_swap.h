@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/14 12:38:18 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/19 12:19:37 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,16 @@ typedef struct s_all
 int	ft_checkarg(int argc, char **argv);
 int	ft_checknum(int argc, char **argv);
 int	ft_strlarg(int argc, char **str);
+char	**ft_checkarr(int *argc,char *str);
 //ft_op
 void	ft_rotate(t_stack **lst, char name);
 void	ft_swap(t_stack *lst, char name);
 void	ft_rrotate(t_stack **lst, char name);
 void	ft_push(t_stack **stack_in, t_stack **stack_out, char n);
-//
+//ft_stacks
+t_stack	*ft_add(t_stack *prev, int n);
+void	ft_printstack_new(t_stack *lst);
+void	ft_printstack_rnew(t_stack *lst);
+t_stack	*ft_createstack(int argc, char **argv);
+
 #endif
