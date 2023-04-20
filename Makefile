@@ -2,7 +2,7 @@ CC = gcc
 
 NAME = push_swap
 
-SRC = ft_add.c ft_check_error.c ft_op.c ft_stacks.c ft_algorithm.c ft_mvorder.c ft_free.c ft_check_stack.c
+SRC = ft_check_error.c ft_op.c ft_stacks.c ft_algorithm.c ft_mvorder.c ft_free.c ft_check_stack.c main.c
 
 CFLAG = -Wall -Wextra -Werror -g
 
