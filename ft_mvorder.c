@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:14:29 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/20 12:17:58 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/20 15:56:29 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,53 +36,6 @@ void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 		}
 		k++;
 	}
-}
-
-// this function is a support for ft_countmva
-int	ft_calculatemv(t_stack *a, t_stack *b, t_stack *start, int temp)
-{
-	int	i;
-	int	len;
-
-	len = temp;
-	i = 0;
-	if (a->content > b->content)
-		i = 1;
-	else
-	{
-		while (1)
-		{
-			if (a->content < b->content && a->next->content > b->content)
-			{
-				i += 2;
-				break ;
-			}
-			a = a->next;
-			i += 2;
-			if (i / 2 > len / 2)
-			{
-				i = 0;
-				a = start;
-				break ;
-			}
-		}
-		if (!i)
-		{
-			while (temp-- > 0)
-			{
-				if (a->content < b->content && a->next->content > b->content)
-				{
-					i += 2;
-					break ;
-				}
-				a = a->prev;
-				i += 2;
-			}
-			if (temp < 0)
-				i = 2;
-		}
-	}
-	return (i);
 }
 
 // function countmovement for push element in right order
@@ -122,6 +75,23 @@ int	*ft_countmvb(int len)
 	return (res);
 }
 
+void	ft_convertmv_ordinate(int *naction, int start, t_all *stacks)
+{
+	int	i;
+
+	i = 0;
+	while (naction[i] != start)
+		i++;
+	start = 0;
+	while (start++ < i)
+	{
+		if (stacks->mov_b[i] < 0)
+			ft_rrotate(&stacks->b, 'b');
+		else
+			ft_rotate(&stacks->b, 'b');
+	}
+}
+
 //this function convert count in mv
 void	ft_convertmv(t_all *stacks)
 {
@@ -142,16 +112,6 @@ void	ft_convertmv(t_all *stacks)
 		i++;
 	}
 	start = ft_checklessnum(naction, len - 1);
-	i = 0;
-	while (naction[i] != start)
-		i++;
-	start = 0;
-	while (start++ < i)
-	{
-		if (stacks->mov_b[i] < 0)
-			ft_rrotate(&stacks->b, 'b');
-		else
-			ft_rotate(&stacks->b, 'b');
-	}
+	ft_convertmv_ordinate(naction, start, stacks);
 	free(naction);
 }

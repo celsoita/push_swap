@@ -51,4 +51,3 @@ void	ft_push(t_stack **stack_in, t_stack **stack_out, char n)
 	*stack_in = temp;
 	ft_printf("p%c\n", n);
 }
-

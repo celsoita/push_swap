@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 10:19:35 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/20 12:18:02 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/20 15:56:28 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,17 @@ void	ft_rrotate(t_stack **lst, char name)
 }
 
 // this function rotate both stacks
-void	ft_rr_rotate(t_all *lst)
+void	ft_rr_rotate(t_stack **a, t_stack **b)
 {
-	ft_rotate(&lst->a, 0);
-	ft_rotate(&lst->b, 0);
+	ft_rotate(a, 0);
+	ft_rotate(b, 0);
 	ft_printf("rr\n");
 }
 
 // this function  reverse rotate both stacks
-void	ft_rrr_rrotate(t_all *lst)
+void	ft_rrr_rrotate(t_stack **a, t_stack **b)
 {
-	ft_rrotate(&lst->a, 0);
-	ft_rrotate(&lst->b, 0);
+	ft_rrotate(a, 0);
+	ft_rrotate(b, 0);
 	ft_printf("rrr\n");
 }

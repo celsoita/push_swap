@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/20 12:18:01 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/20 15:56:31 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ void	ft_push(t_stack **stack_in, t_stack **stack_out, char n);
 //ft_oprotate
 void	ft_rotate(t_stack **lst, char name);
 void	ft_rrotate(t_stack **lst, char name);
-void	ft_rr_rotate(t_all *lst);
-void	ft_rrr_rrotate(t_all *lst);
+void	ft_rr_rotate(t_stack **a, t_stack **b);
+void	ft_rrr_rrotate(t_stack **a, t_stack **b);
 //ft_stacks
 t_stack	*ft_add(t_stack *prev, int n);
 void	ft_printstack_new(t_stack *lst);
@@ -57,7 +57,6 @@ int	*ft_algorithm(t_stack *lst, int argc, int *len_arr);
 void	ft_minialgo(t_stack **a, int len);
 //ft_mvorder
 void	ft_pushorder(int *alg, t_all *stack, int arr_len);
-int	ft_calculatemv(t_stack *a, t_stack *b, t_stack *start, int temp);
 int	*ft_countmva(t_stack *a, t_stack *b, int len);
 int	*ft_countmvb(int len);
 void	ft_convertmv(t_all *stacks);
@@ -69,6 +68,8 @@ int	ft_checknode(t_stack *lst, int pos);
 int	ft_stacksize(t_stack *stack);
 int	ft_checklessnum(int *arr,int len);
 //ft_order
-void	ft_order(t_stack **a, t_stack **b, int len);
+void	ft_order(t_stack **a, t_stack **b, int len, int *mov_b);
+//ft_calculatemv
+int	ft_calculatemv(t_stack *a, t_stack *b, t_stack *start, int temp);
 
 #endif
