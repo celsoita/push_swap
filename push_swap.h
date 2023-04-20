@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/19 21:20:15 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/20 12:18:01 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,17 +39,19 @@ int	ft_checknum(int argc, char **argv);
 int	ft_strlarg(int argc, char **str);
 char	**ft_checkarr(int *argc,char *str);
 //ft_op
-void	ft_rotate(t_stack **lst, char name);
 void	ft_swap(t_stack *lst, char name);
-void	ft_rrotate(t_stack **lst, char name);
 void	ft_push(t_stack **stack_in, t_stack **stack_out, char n);
+//ft_oprotate
+void	ft_rotate(t_stack **lst, char name);
+void	ft_rrotate(t_stack **lst, char name);
+void	ft_rr_rotate(t_all *lst);
+void	ft_rrr_rrotate(t_all *lst);
 //ft_stacks
 t_stack	*ft_add(t_stack *prev, int n);
 void	ft_printstack_new(t_stack *lst);
 void	ft_printstack_rnew(t_stack *lst);
 t_stack	*ft_createstack(int argc, char **argv);
 //ft_algorithm
-int	ft_checknode(t_stack *lst, int pos);
 int	*ft_fillarr(t_stack *lst, int *res, int pos);
 int	*ft_algorithm(t_stack *lst, int argc, int *len_arr);
 void	ft_minialgo(t_stack **a, int len);
@@ -63,8 +65,10 @@ void	ft_convertmv(t_all *stacks);
 void	ft_freematrix(char **matrix);
 void	ft_free_lst(t_stack **lst);
 //ft_check_stack
+int	ft_checknode(t_stack *lst, int pos);
 int	ft_stacksize(t_stack *stack);
 int	ft_checklessnum(int *arr,int len);
+//ft_order
 void	ft_order(t_stack **a, t_stack **b, int len);
 
 #endif

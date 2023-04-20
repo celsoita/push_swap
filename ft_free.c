@@ -29,7 +29,7 @@ void	ft_freematrix(char **matrix)
 // this function free the list
 void	ft_free_lst(t_stack **lst)
 {
-	t_stack *temp;
+	t_stack	*temp;
 
 	if (!*lst)
 		return ;

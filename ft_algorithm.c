@@ -6,19 +6,11 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 09:54:19 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/19 21:20:17 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/20 12:18:07 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-//take content at position of lst
-int	ft_checknode(t_stack *lst, int pos)
-{
-	while (pos-- > 0)
-		lst = lst->next;
-	return (lst->content);
-}
 
 //fill an array with stack content
 int	*ft_fillarr(t_stack *lst, int *res, int pos)
@@ -31,21 +23,9 @@ int	*ft_fillarr(t_stack *lst, int *res, int pos)
 	return (res);
 }
 
-//its a LIS algorithm
-int	*ft_algorithm(t_stack *lst, int argc, int *len_arr)
+//fill arr algorithm
+void	ft_algorithm_arr(t_stack *lst, int i, int k, int *arr)
 {
-	int	i;
-	int	k;
-	int	*res;
-	int	*arr;
-	int	lenght;
-
-	arr = malloc(sizeof(int) * argc);
-	lst->end = lst;
-	k = 0;
-	i = 0;
-	while (i < argc)
-		arr[i++] = 1;
 	while (lst->end->next != lst)
 	{
 		lst->start = lst;
@@ -69,15 +49,22 @@ int	*ft_algorithm(t_stack *lst, int argc, int *len_arr)
 		i++;
 		lst->start = lst->start ->next;
 	}
-	lenght = 0;
+}
+
+//
+int	ft_algorithm_subsq(int argc, int *len_arr, int *arr)
+{
+	int	i;
+	int	lenght;
+
 	i = 0;
+	lenght = 0;
 	while (i < argc)
 	{
 		if (arr[i] > lenght)
 			lenght = arr[i];
 		i++;
 	}
-	res = malloc(sizeof(int) * lenght);
 	i = argc - 1;
 	*len_arr = lenght;
 	while (i > 0)
@@ -86,7 +73,26 @@ int	*ft_algorithm(t_stack *lst, int argc, int *len_arr)
 			break ;
 		i--;
 	}
-	k = lenght - 1;
+	return (i);
+}
+
+//its a LIS algorithm
+int	*ft_algorithm(t_stack *lst, int argc, int *len_arr)
+{
+	int	i;
+	int	*res;
+	int	*arr;
+	int	lenght;
+
+	arr = malloc(sizeof(int) * argc);
+	lst->end = lst;
+	i = 0;
+	while (i < argc)
+		arr[i++] = 1;
+	ft_algorithm_arr(lst, i, 0, arr);
+	i = ft_algorithm_subsq(argc, len_arr, arr);
+	res = malloc(sizeof(int) * (*len_arr));
+	lenght = *len_arr;
 	res[--lenght] = i;
 	while (lenght > 0)
 	{
@@ -95,7 +101,7 @@ int	*ft_algorithm(t_stack *lst, int argc, int *len_arr)
 			res[--lenght] = i;
 		i--;
 	}
-	res = ft_fillarr(lst, res, k);
+	res = ft_fillarr(lst, res, *len_arr - 1);
 	free(arr);
 	return (res);
 }

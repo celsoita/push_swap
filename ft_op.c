@@ -12,24 +12,6 @@
 
 #include "push_swap.h"
 
-// this function rotate stack 
-void	ft_rotate(t_stack **lst, char name)
-{
-	if (!*lst || (*lst)->next == *lst)
-		return ;
-	*lst = (*lst)->next;
-	ft_printf("r%c\n", name);
-}
-
-// this function rotate stack in reverse order
-void	ft_rrotate(t_stack **lst, char name)
-{
-	if (!*lst || (*lst)->prev == *lst)
-		return ;
-	*lst = (*lst)->prev;
-	ft_printf("rr%c\n", name);
-}
-
 // this function swap the first 2 element in the list
 void	ft_swap(t_stack *lst, char name)
 {
@@ -69,3 +51,4 @@ void	ft_push(t_stack **stack_in, t_stack **stack_out, char n)
 	*stack_in = temp;
 	ft_printf("p%c\n", n);
 }
+
