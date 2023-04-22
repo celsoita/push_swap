@@ -51,3 +51,37 @@ void	ft_push(t_stack **stack_in, t_stack **stack_out, char n)
 	*stack_in = temp;
 	ft_printf("p%c\n", n);
 }
+
+//this function search the less  number in stack
+int	ft_less_stack_n(t_stack *stack)
+{
+	int	l;
+	int	i;
+
+	l = ft_stacksize(stack);
+	i = stack->content;
+	while (l-- > 0)
+	{
+		if (stack->content < i)
+			i = stack->content;
+		stack = stack->next;
+	}
+	return (i);
+}
+
+//this function search the biggest number in stack
+int	ft_bigger_stack_n(t_stack *stack)
+{
+	int	l;
+	int	i;
+
+	l = ft_stacksize(stack);
+	i = stack->content;
+	while (l-- > 0)
+	{
+		if (stack->content > i)
+			i = stack->content;
+		stack = stack->next;
+	}
+	return (i);
+}

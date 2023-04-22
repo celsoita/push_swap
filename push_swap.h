@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/20 15:56:31 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:48:46 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ char	**ft_checkarr(int *argc,char *str);
 //ft_op
 void	ft_swap(t_stack *lst, char name);
 void	ft_push(t_stack **stack_in, t_stack **stack_out, char n);
+int	ft_less_stack_n(t_stack *stack);
+int	ft_bigger_stack_n(t_stack *stack);
 //ft_oprotate
 void	ft_rotate(t_stack **lst, char name);
 void	ft_rrotate(t_stack **lst, char name);
@@ -59,7 +61,7 @@ void	ft_minialgo(t_stack **a, int len);
 void	ft_pushorder(int *alg, t_all *stack, int arr_len);
 int	*ft_countmva(t_stack *a, t_stack *b, int len);
 int	*ft_countmvb(int len);
-void	ft_convertmv(t_all *stacks);
+int	ft_convertmv(t_all *stacks);
 //ft_free
 void	ft_freematrix(char **matrix);
 void	ft_free_lst(t_stack **lst);
@@ -67,8 +69,9 @@ void	ft_free_lst(t_stack **lst);
 int	ft_checknode(t_stack *lst, int pos);
 int	ft_stacksize(t_stack *stack);
 int	ft_checklessnum(int *arr,int len);
+int	ft_checkindex(t_stack *b, int n, int len);
 //ft_order
-void	ft_order(t_stack **a, t_stack **b, int len, int *mov_b);
+void	ft_order(t_all *l, int len, int c);
 //ft_calculatemv
 int	ft_calculatemv(t_stack *a, t_stack *b, t_stack *start, int temp);
 

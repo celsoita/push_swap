@@ -50,3 +50,30 @@ int	ft_checklessnum(int *arr, int len)
 	}
 	return (res);
 }
+
+int	ft_checkindex(t_stack *b, int n, int len)
+{
+	int	i;
+	t_stack	*start;
+
+	if (len <= 1)
+		return (0);
+	start = b;
+	i = -1;
+	while(++i < len / 2)
+	{
+		if(b->content == n)
+			return(i);
+		b = b->next;
+	}
+	i = 0;
+	b = start;
+	while(len-- > 0)
+	{
+		i--;
+		if(b->content == n)
+			return(i);
+		b = b->prev;
+	}
+	return(i);
+}

@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:14:29 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/20 15:56:29 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/22 15:48:48 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	*ft_countmva(t_stack *a, t_stack *b, int len)
 	return (res);
 }
 
-// this function count the movement necessary 
+// this function count the movement necessary
 //for move the element in the first position
 int	*ft_countmvb(int len)
 {
@@ -93,7 +93,7 @@ void	ft_convertmv_ordinate(int *naction, int start, t_all *stacks)
 }
 
 //this function convert count in mv
-void	ft_convertmv(t_all *stacks)
+int	ft_convertmv(t_all *stacks)
 {
 	int	i;
 	int	len;
@@ -112,6 +112,10 @@ void	ft_convertmv(t_all *stacks)
 		i++;
 	}
 	start = ft_checklessnum(naction, len - 1);
-	ft_convertmv_ordinate(naction, start, stacks);
+	i = 0;
+	while(naction[i] != start)
+		i++;
+	//ft_convertmv_ordinate(naction, start, stacks);
 	free(naction);
+	return (ft_checknode(stacks->b, i));
 }
