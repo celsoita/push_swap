@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 09:14:37 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/24 15:19:04 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:13:50 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,6 @@ void	ft_algofoure(t_all *stacks)
 		ft_rotate(&stacks->a, 'a');
 	ft_push(&stacks->a, &stacks->b, 'b');
 	ft_minialgo(&stacks->a, 3);
-	ft_push(&stacks->b, &stacks->a, 'a');
 	ft_push(&stacks->b, &stacks->a, 'a');
 }
 int	main(int argc, char **argv)
@@ -87,7 +86,10 @@ int	main(int argc, char **argv)
 				ft_rotate(&all.a, 'a');
 			ft_push(&all.a, &all.b, 'b');
 		}
-		ft_algofoure(&all);
+		if (all.len > 3)
+			ft_algofoure(&all);
+		if (all.len == 5)
+			ft_push(&all.b, &all.a, 'a');
 	}
 	else
 	{

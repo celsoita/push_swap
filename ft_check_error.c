@@ -67,10 +67,12 @@ int	ft_checknum(int argc, char **argv)
 		i = 0;
 		while (argv[c][i])
 		{
-			if (ft_isdigit(argv[c][i]) != 1 && \
-			argv[c][i] != '-' && argv[c][i] != '+')
+			while (ft_isdigit(argv[c][i]))
+				i++;
+			if (i > 0 && (argv[c][i] == '-' || argv[c][i] == '+'))
 				return (1);
-			i++;
+			if (argv[c][i])
+				i++;
 		}	
 		c++;
 	}
