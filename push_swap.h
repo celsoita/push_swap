@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/22 15:48:46 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/26 16:44:32 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ int	ft_checknode(t_stack *lst, int pos);
 int	ft_stacksize(t_stack *stack);
 int	ft_checklessnum(int *arr,int len);
 int	ft_checkindex(t_stack *b, int n, int len);
+int	ft_checkorder(t_stack *stack);
 //ft_order
 void	ft_order(t_all *l, int len, int c);
 //ft_calculatemv
