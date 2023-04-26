@@ -26,6 +26,8 @@ int	ft_stacksize(t_stack *stack)
 	t_stack	*temp;
 	int		i;
 
+	if (!stack)
+		return (0);
 	temp = stack->next;
 	i = 1;
 	while (temp != stack)

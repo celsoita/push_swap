@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 09:14:37 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/26 16:46:39 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/26 19:40:16 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,34 +18,24 @@ void	ft_order_stack(t_stack **a)
 		ft_rotate(a, 'a');	
 }
 
-int	ft_check_less_content(t_stack *s)
-{
-	t_stack	*temp;
-
-	int	i;
-	int c;
-
-	c = 5;
-	temp = s;
-	i = temp->content;
-	while (c--)
-	{
-		if(temp->content < i)
-				i = temp->content;
-			temp = temp->next;
-	}
-	return(i);
-}
 void	ft_algofoure(t_all *stacks)
 {
 	int	i;
 	
 	i = ft_check_less_content(stacks->a);
-	while(stacks->a->content != i)
-		ft_rotate(&stacks->a, 'a');
-	ft_push(&stacks->a, &stacks->b, 'b');
-	ft_minialgo(&stacks->a, 3);
-	ft_push(&stacks->b, &stacks->a, 'a');
+	while (stacks->a->content != i)
+	{
+		if (ft_check_content_pos(stacks->a, i) < 3)
+			ft_rotate(&stacks->a, 'a');
+		else
+			ft_rrotate(&stacks->a, 'a');
+	}
+	if (ft_checkorder(stacks->a))
+	{
+		ft_push(&stacks->a, &stacks->b, 'b');
+		ft_minialgo(&stacks->a, 3);
+		ft_push(&stacks->b, &stacks->a, 'a');
+	}
 }
 int	main(int argc, char **argv)
 {
@@ -78,7 +68,6 @@ int	main(int argc, char **argv)
 	// ft_printstack_new(all.a);
 	if (ft_checkorder(all.a) == 1)
 	{
-		arr = 0;
 		if (all.len < 6)
 		{
 			if (all.len < 4)
@@ -86,12 +75,18 @@ int	main(int argc, char **argv)
 			if (all.len == 5)
 			{
 				while(all.a->content != ft_check_less_content(all.a))
-					ft_rotate(&all.a, 'a');
-				ft_push(&all.a, &all.b, 'b');
+				{
+					if (ft_check_content_pos(all.a, ft_check_less_content(all.a)) < 3)
+						ft_rotate(&all.a, 'a');
+					else
+						ft_rrotate(&all.a, 'a');
+				}
+				if (ft_checkorder(all.a))
+					ft_push(&all.a, &all.b, 'b');
 			}
 			if (all.len > 3)
 				ft_algofoure(&all);
-			if (all.len == 5)
+			if (all.len == 5 && ft_stacksize(all.b))
 				ft_push(&all.b, &all.a, 'a');
 		}
 		else
