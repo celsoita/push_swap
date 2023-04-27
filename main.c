@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 09:14:37 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/27 15:30:57 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/27 20:14:14 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,35 @@
 
 void	ft_order_stack(t_stack **s, int rev, char c)
 {
+	int	i;
+
+	i = 0;
 	if (!rev)
-	while ((*s)->content > (*s)->prev->content)
-		ft_rotate(s, c);
+	{
+		while (ft_checknode(*s, i) > ft_checknode(*s, i + 1))
+			i++;
+		if (i < ft_stacksize(*s) / 2)
+		{
+			while ((*s)->content > (*s)->prev->content)
+				ft_rotate(s, c);
+		}
+		else
+			while ((*s)->content > (*s)->prev->content)
+				ft_rrotate(s, c);
+	}
 	if (rev)
-	while ((*s)->content < (*s)->prev->content)
-		ft_rotate(s, c);		
+	{
+		while (ft_checknode(*s, i) < ft_checknode(*s, i + 1))
+			i++;
+		if (i < ft_stacksize(*s) / 2)
+		{
+			while ((*s)->content < (*s)->prev->content)
+				ft_rotate(s, c);
+		}
+		else
+			while ((*s)->content < (*s)->prev->content)
+				ft_rrotate(s, c);
+	}
 }
 
 void	ft_algofoure(t_all *stacks)

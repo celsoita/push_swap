@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:14:29 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/27 15:42:44 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/27 21:16:01 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,28 +28,28 @@ void	ft_order_b(t_stack **a, t_stack **b, int len)
 		return ;
 	}
 	i = 0;
-	while (i <= len)
+	while (i < len / 2)
 	{
-		if ((*a)->content > ft_checknode(*a, i) && (*a)->content < ft_checknode(*a, i - 1))
+		if ((*a)->content > ft_checknode(*b, i) && (*a)->content < ft_checknode(*b, i - 1))
 		{
 			while (i-- > 0)
 				ft_rotate(b, 'b');
 			ft_push(a, b, 'b');
-			break ;
+			return ;
 		}
 		i++;
 	}
-	if (!i)
+	if (i)
 	{
 		i = len;
-		while (i <= len)
+		while (i > 0)
 		{
-			if ((*a)->content > ft_checknode(*a, i) && (*a)->content < ft_checknode(*a, i - 1))
+			if ((*a)->content > ft_checknode(*b, i) && (*a)->content < ft_checknode(*b, i - 1))
 			{
-				while (i++ <= len)
+				while (i++ < len)
 					ft_rrotate(b, 'b');
 				ft_push(a, b, 'b');
-				break ;
+				return ;
 			}
 			i--;
 		}
@@ -72,7 +72,10 @@ void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 		if (number != stack->a->content)
 		{	
 			if (ft_stacksize(stack->b) > 1)
+			{
 				ft_order_b(&stack->a, &stack->b, ft_stacksize(stack->b));
+				ft_order_stack(&stack->b, 1, 'b');
+			}
 			else
 				ft_push(&stack->a, &stack->b, 'b');
 		}
