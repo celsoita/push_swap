@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 11:58:57 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/22 15:48:38 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/26 20:55:54 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	ft_order_ascendent(t_all *l, int c)
 			ft_rotate(&l->a, 'a');
 		}
 	}
-	// while (i--)
-	// 	ft_rrotate(&a, 'a');
 }
 
 void	ft_order_descendent(t_all *l, int c)
@@ -61,8 +59,6 @@ void	ft_order_descendent(t_all *l, int c)
 			ft_rrotate(&l->a, 'a');
 		}
 	}
-	// while (i--)
-	// 	ft_rotate(&a, 'a');
 }
 
 void	ft_order(t_all *l, int len, int c)

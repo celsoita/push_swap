@@ -6,12 +6,17 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:14:29 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/22 15:48:48 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/26 22:01:22 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
+void	ft_order_b(t_stack **b)
+{
+	 
+	
+}
 //this function check the number in stack and push
 // the element not in order in b ... remaining stack a in order
 void	ft_pushorder(int *alg, t_all *stack, int arr_len)
@@ -26,7 +31,11 @@ void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 	while (k < stack->len)
 	{
 		if (number != stack->a->content)
+		{	
 			ft_push(&stack->a, &stack->b, 'b');
+			if (ft_stacksize(stack->b) > 1)
+				ft_order_b(&stack->b);
+		}
 		else
 		{
 			ft_rotate(&stack->a, 'a');
