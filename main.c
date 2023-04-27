@@ -6,16 +6,20 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 09:14:37 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/26 19:40:16 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/27 15:30:57 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_order_stack(t_stack **a)
+void	ft_order_stack(t_stack **s, int rev, char c)
 {
-	while ((*a)->content > (*a)->prev->content)
-		ft_rotate(a, 'a');	
+	if (!rev)
+	while ((*s)->content > (*s)->prev->content)
+		ft_rotate(s, c);
+	if (rev)
+	while ((*s)->content < (*s)->prev->content)
+		ft_rotate(s, c);		
 }
 
 void	ft_algofoure(t_all *stacks)
@@ -109,7 +113,7 @@ int	main(int argc, char **argv)
 				free(all.mov_b);
 				free(all.mov_a);
 			}
-			ft_order_stack(&all.a);
+			ft_order_stack(&all.a, 0, 'a');
 		}
 	}	
 	// ft_printf("STACK A:\n");
