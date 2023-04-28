@@ -6,22 +6,26 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:14:29 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/27 21:16:01 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/28 18:25:19 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_order_b(t_stack **a, t_stack **b, int len)
+void	ft_order_b(t_stack **a, t_stack **b, int len, t_bool *rot)
 {
 	int	i;
 
 	if ((*a)->content < (*b)->prev->content)
 	{
 		ft_push(a, b, 'b');
-		ft_rotate(b, 'b');
+		if (*rot)
+			ft_rr_rotate(a, b);
+		else
+			ft_rotate(b, 'b');
 		return ;
 	}
+	*rot = FALSE;
 	if ((*a)->content > (*b)->content)
 	{
 		ft_push(a, b, 'b');
@@ -60,24 +64,32 @@ void	ft_order_b(t_stack **a, t_stack **b, int len)
 // the element not in order in b ... remaining stack a in order
 void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 {
-	int	i;
-	int	k;
-	int	number;
+	t_bool	rot;
+	int		i;
+	int		k;
+	int		number;
 
 	i = 0;
 	k = 0;
 	number = alg[i];
 	while (k < stack->len)
 	{
+		rot = FALSE;
 		if (number != stack->a->content)
 		{	
 			if (ft_stacksize(stack->b) > 1)
 			{
-				ft_order_b(&stack->a, &stack->b, ft_stacksize(stack->b));
-				ft_order_stack(&stack->b, 1, 'b');
+				if (number == stack->a->next->content)
+					rot = TRUE;
+				ft_order_b(&stack->a, &stack->b, ft_stacksize(stack->b), &rot);
+				// ft_order_stack(&stack->b, 1, 'b');
 			}
 			else
+			{
 				ft_push(&stack->a, &stack->b, 'b');
+				if (ft_stacksize(stack->b) == 2 && !ft_checkorder(stack->b))
+					ft_rotate(&stack->b, 'b');
+			}
 		}
 		else
 		{
@@ -86,6 +98,8 @@ void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 			if (i < arr_len)
 				number = alg[i];
 		}
+		if (rot == TRUE && i < arr_len)
+			number = alg[++i];
 		k++;
 	}
 }
@@ -144,6 +158,14 @@ void	ft_convertmv_ordinate(int *naction, int start, t_all *stacks)
 	}
 }
 
+//be positive a num
+int	ft_topositive(int n)
+{
+	if (n < 0)
+		n = -n;
+	return (n);
+}
+
 //this function convert count in mv
 int	ft_convertmv(t_all *stacks)
 {
@@ -157,10 +179,22 @@ int	ft_convertmv(t_all *stacks)
 	i = 0;
 	while (i < len)
 	{
-		if (stacks->mov_b[i] < 0)
-			naction[i] = stacks->mov_a[i] + (-stacks->mov_b[i]);
+		if (stacks->mov_a[i] < 0 && stacks->mov_b[i] < 0)
+		{
+			if (stacks->mov_b[i] < stacks->mov_a[i])
+				naction[i] = ft_topositive(stacks->mov_b[i]);
+			else
+				naction[i] = ft_topositive(stacks->mov_a[i]);
+		}
+		else if (stacks->mov_b[i] < 0 || stacks->mov_a[i] < 0)
+			naction[i] = ft_topositive(stacks->mov_a[i]) + ft_topositive(stacks->mov_b[i]);
 		else
-			naction[i] = stacks->mov_a[i] + stacks->mov_b[i];
+		{
+			if (stacks->mov_b[i] > stacks->mov_a[i])
+				naction[i] = stacks->mov_b[i];
+			else
+				naction[i] = stacks->mov_a[i];
+		}
 		i++;
 	}
 	start = ft_checklessnum(naction, len - 1);

@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 12:13:37 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/22 11:49:36 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:34:31 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ int	ft_calculatemv_discendent(int temp, t_stack *a, t_stack *b, int i)
 	{
 		if (a->content < b->content && a->next->content > b->content)
 		{
-			i += 2;
+			i -= 2;
 			break ;
 		}
 		a = a->prev;
-		i += 2;
+		i -= 2;
 	}
 	if (temp < 0)
-		i = 2;
+		i = -2;
 	return (i);
 }
 

@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/27 20:44:05 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/28 11:25:27 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,12 @@
 # define PUSH_SWAP_H
 
 # include "libft/libft.h"
+
+typedef enum e_bool
+{
+	TRUE	= 1,
+	FALSE	= 0
+}	t_bool;
 
 typedef struct s_stack
 {

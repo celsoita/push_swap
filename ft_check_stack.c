@@ -53,6 +53,7 @@ int	ft_checklessnum(int *arr, int len)
 	return (res);
 }
 
+//index of stack if rra negative
 int	ft_checkindex(t_stack *b, int n, int len)
 {
 	int	i;

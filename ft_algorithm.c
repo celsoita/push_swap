@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 09:54:19 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/22 15:48:40 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/04/28 10:59:53 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_algorithm_arr(t_stack *lst, int i, int k, int *arr)
 			if (lst->start->content < lst->end->content && arr[k] <= arr[i])
 				arr[k] = arr[i] + 1;
 			i++;
-			lst->start = lst->start ->next;
+			lst->start = lst->start->next;
 		}
 		lst->end = lst->end->next;
 		k++;
@@ -47,7 +47,7 @@ void	ft_algorithm_arr(t_stack *lst, int i, int k, int *arr)
 		if (lst->start->content < lst->end->content && arr[k] <= arr[i])
 			arr[k] = arr[i] + 1;
 		i++;
-		lst->start = lst->start ->next;
+		lst->start = lst->start->next;
 	}
 }
 
