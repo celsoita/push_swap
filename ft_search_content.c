@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-//this function check less number in stack
+//this function check less number in stack (ONLY FOR 4 NUMBERS!!!)
 int	ft_check_less_content(t_stack *s)
 {
 	t_stack	*temp;
@@ -35,7 +35,7 @@ int	ft_check_content_pos(t_stack *stack, int n)
 {
 	t_stack	*temp;
 	int		i;
-	
+
 	i = 1;
 	temp = stack->prev;
 	while (stack != temp)

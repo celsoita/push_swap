@@ -56,29 +56,29 @@ int	ft_checklessnum(int *arr, int len)
 //index of stack if rra negative
 int	ft_checkindex(t_stack *b, int n, int len)
 {
-	int	i;
+	int		i;
 	t_stack	*start;
 
 	if (len <= 1)
 		return (0);
 	start = b;
 	i = -1;
-	while(++i < len / 2)
+	while (++i < len / 2)
 	{
-		if(b->content == n)
-			return(i);
+		if (b->content == n)
+			return (i);
 		b = b->next;
 	}
 	i = 0;
 	b = start;
-	while(len-- > 0)
+	while (len-- > 0)
 	{
+		if (b->content == n)
+			return (i);
 		i--;
-		if(b->content == n)
-			return(i);
 		b = b->prev;
 	}
-	return(i);
+	return (i);
 }
 //this function check order of stack
 int	ft_checkorder(t_stack *stack)

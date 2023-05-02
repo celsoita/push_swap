@@ -52,7 +52,7 @@ void	ft_push(t_stack **stack_in, t_stack **stack_out, char n)
 	ft_printf("p%c\n", n);
 }
 
-//this function search the less  number in stack
+//this function search the less number in stack
 int	ft_less_stack_n(t_stack *stack)
 {
 	int	l;

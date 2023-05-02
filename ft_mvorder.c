@@ -6,31 +6,36 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:14:29 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/28 18:25:19 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:50:23 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ft_order_b(t_stack **a, t_stack **b, int len, t_bool *rot)
+void	ft_order_b(t_stack **a, t_stack **b, int len)
 {
 	int	i;
 
-	if ((*a)->content < (*b)->prev->content)
+	if ((*a)->content < ft_less_stack_n(*b))
 	{
-		ft_push(a, b, 'b');
-		if (*rot)
-			ft_rr_rotate(a, b);
-		else
+		while (ft_checkindex(*b, ft_less_stack_n(*b), len) > -1)
 			ft_rotate(b, 'b');
-		return ;
-	}
-	*rot = FALSE;
-	if ((*a)->content > (*b)->content)
-	{
+		while (ft_checkindex(*b, ft_less_stack_n(*b), len) < -1)
+			ft_rrotate(b, 'b');
 		ft_push(a, b, 'b');
 		return ;
 	}
+	if ((*a)->content > ft_bigger_stack_n(*b))
+	{
+		while (ft_checkindex(*b, ft_bigger_stack_n(*b), len) > 0)
+			ft_rotate(b, 'b');
+		while (ft_checkindex(*b, ft_bigger_stack_n(*b), len) < 0)
+			ft_rrotate(b, 'b');
+		ft_push(a, b, 'b');
+		return ;
+	}
+	if (ft_stacksize(*a) == 1)
+		ft_push(a, b, 'b');
 	i = 0;
 	while (i < len / 2)
 	{
@@ -81,7 +86,7 @@ void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 			{
 				if (number == stack->a->next->content)
 					rot = TRUE;
-				ft_order_b(&stack->a, &stack->b, ft_stacksize(stack->b), &rot);
+				ft_order_b(&stack->a, &stack->b, ft_stacksize(stack->b));
 				// ft_order_stack(&stack->b, 1, 'b');
 			}
 			else
@@ -174,7 +179,7 @@ int	ft_convertmv(t_all *stacks)
 	int	*naction;
 	int	start;
 
-	len = ft_stacksize(stacks->b);
+	len = ft_stacksize(stacks->a);
 	naction = malloc(sizeof(int) * len);
 	i = 0;
 	while (i < len)
@@ -203,5 +208,5 @@ int	ft_convertmv(t_all *stacks)
 		i++;
 	//ft_convertmv_ordinate(naction, start, stacks);
 	free(naction);
-	return (ft_checknode(stacks->b, i));
+	return (ft_checknode(stacks->a, i));
 }

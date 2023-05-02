@@ -6,11 +6,38 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 09:14:37 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/28 15:31:31 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:50:21 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+//this function push better number
+void	ft_push_better(t_all *all, int n)
+{
+	int	ma;
+	int	mb;
+
+	ma = all->mov_a[ft_check_content_pos(all->a, n)];
+	mb = all->mov_b[ft_check_content_pos(all->a, n)];
+	while (ma < 0 && mb < 0)
+	{
+		ft_rrr_rrotate(&all->a, &all->b);
+		ma++;
+		mb++;
+	}
+	while (ma > 0 && mb > 0)
+	{
+		ft_rr_rotate(&all->a, &all->b);
+		ma--;
+		mb--;
+	}
+	while (ft_checkindex(all->a, n, ft_stacksize(all->a)) > 0)
+		ft_rotate(&all->a, 'a');
+	while (ft_checkindex(all->a, n, ft_stacksize(all->a)) < 0)
+		ft_rrotate(&all->a, 'a');
+	ft_order_b(&all->a, &all->b, ft_stacksize(all->a));
+}
 
 void	ft_order_stack(t_stack **s, int rev, char c)
 {
@@ -60,6 +87,7 @@ void	ft_algofoure(t_all *stacks)
 		ft_push(&stacks->b, &stacks->a, 'a');
 	}
 }
+
 int	main(int argc, char **argv)
 {
 	t_all	all;
@@ -114,25 +142,55 @@ int	main(int argc, char **argv)
 		}
 		else
 		{
-			arr = ft_algorithm(all.a, argc, &argc);
-			ft_pushorder(arr, &all, argc);
+			// t_bool	bigger_n;
+
+			// bigger_n = FALSE;
+			// arr = ft_algorithm(all.a, argc, &argc);
+			// if (all.a->content == ft_bigger_stack_n(all.a))
+			// {
+			// 	ft_rotate(&all.a, 'a');
+			// 	bigger_n = TRUE;
+			// }
+			ft_push(&all.a, &all.b, 'b');
+			// if (all.a->content == ft_bigger_stack_n(all.a))
+			// {
+			// 	ft_rotate(&all.a, 'a');
+			// 	bigger_n = TRUE;
+			// }
+			ft_push(&all.a, &all.b, 'b');
+			while (all.a)
+			{
+				// if (all.a->content == ft_bigger_stack_n(all.a))
+				// {
+				// 	ft_rotate(&all.a, 'a');
+				// 	bigger_n = TRUE;
+				// }
+				all.mov_b = ft_countmva(all.b, all.a, ft_stacksize(all.a));
+				all.mov_a = ft_countmvb(ft_stacksize(all.a));
+				ft_push_better(&all, ft_convertmv(&all));
+				free(all.mov_b);
+				free(all.mov_a);
+			}
+			ft_order_stack(&all.b, 1, 'b');
+			while (all.b)
+				ft_push(&all.b, &all.a, 'a');
+			// ft_pushorder(arr, &all, ft_stacksize(all.a));
 			//ft_printf("STACK A:\n");
 			//ft_printstack_new(all.a);
 			//ft_printf("STACK B:\n");
 			//ft_printstack_new(all.b);
-			while (all.b)
-			{
-				all.mov_b = ft_countmvb(ft_stacksize(all.b));
-				all.mov_a = ft_countmva(all.a, all.b, ft_stacksize(all.b));
-				// ft_printf("\nstack A:\n");
-				// ft_printstack_new(all.a);
-				// ft_printf("STACK B:\n");
-				// ft_printstack_new(all.b);
-				ft_order(&all, ft_stacksize(all.a), ft_convertmv(&all));
-				free(all.mov_b);
-				free(all.mov_a);
-			}
-			ft_order_stack(&all.a, 0, 'a');
+			// while (all.b)
+			// {
+			// 	all.mov_b = ft_countmvb(ft_stacksize(all.b));
+			// 	all.mov_a = ft_countmva(all.a, all.b, ft_stacksize(all.b));
+			// 	// ft_printf("\nstack A:\n");
+			// 	// ft_printstack_new(all.a);
+			// 	// ft_printf("STACK B:\n");
+			// 	// ft_printstack_new(all.b);
+			// 	ft_order(&all, ft_stacksize(all.a), ft_convertmv(&all));
+			// 	free(all.mov_b);
+			// 	free(all.mov_a);
+			// }
 		}
 	}	
 	// ft_printf("STACK A:\n");

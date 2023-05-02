@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/28 11:25:27 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/02 16:50:24 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ int			*ft_fillarr(t_stack *lst, int *res, int pos);
 int			*ft_algorithm(t_stack *lst, int argc, int *len_arr);
 void		ft_minialgo(t_stack **a, int len);
 //ft_mvorder
+void		ft_order_b(t_stack **a, t_stack **b, int len);
 void		ft_pushorder(int *alg, t_all *stack, int arr_len);
 int			*ft_countmva(t_stack *a, t_stack *b, int len);
 int			*ft_countmvb(int len);
