@@ -6,68 +6,65 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 12:13:37 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/28 11:34:31 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/03 15:58:13 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_calculatemv_ascendent(t_stack *a, t_stack *b, int len, t_stack *start)
-{
-	int	i;
+// int	ft_calculatemv_ascendent(t_stack *a, t_stack *b, int len, t_stack *start)
+// {
+// 	int	i;
+//
+// 	i = 0;
+// 	while (1)
+// 	{
+// 		ft_checkindex(b, ft_search_higher_to_n(b, a->content), ft_stacksize(b));
+// 		if (1)
+// 		{
+// 			i += 1;
+// 			break ;
+// 		}
+// 		b = b->next;
+// 		i += 1;
+// 		if (i > len / 2)
+// 			return (0);
+// 	}
+// 	return (i);
+// }
 
-	i = 0;
-	while (1)
-	{
-		if (a->content < b->content && a->next->content > b->content)
-		{
-			i += 2;
-			break ;
-		}
-		a = a->next;
-		i += 2;
-		if (i / 2 > len / 2)
-		{
-			i = 0;
-			a = start;
-			break ;
-		}
-	}
-	return (i);
-}
-
-int	ft_calculatemv_discendent(int temp, t_stack *a, t_stack *b, int i)
-{
-	while (temp-- > 0)
-	{
-		if (a->content < b->content && a->next->content > b->content)
-		{
-			i -= 2;
-			break ;
-		}
-		a = a->prev;
-		i -= 2;
-	}
-	if (temp < 0)
-		i = -2;
-	return (i);
-}
+// int	ft_calculatemv_discendent(int temp, t_stack *a, t_stack *b, int i)
+// {
+// 	while (temp-- > 0)
+// 	{
+// 		if (a->content < b->content && a->content > b->prev->content)
+// 		{
+// 			i -= 2;
+// 			break ;
+// 		}
+// 		a = a->prev;
+// 		i -= 1;
+// 	}
+// 	if (temp < 0)
+// 		i = -2;
+// 	return (i);
+// }
 
 // this function is a support for ft_countmva
-int	ft_calculatemv(t_stack *a, t_stack *b, t_stack *start, int temp)
+int	ft_calculatemv(t_stack *a, t_stack *b)
 {
 	int	i;
-	int	len;
+	// int	len;
 
-	len = temp;
-	i = 0;
-	if (a->content > b->content)
-		i = 1;
+	// len = temp;
+	i = ft_search_higher_to_n(b, a->content);
+	i = ft_checkindex(b, i, ft_stacksize(b));
+	if (i >= 0)
+		i += 1;
 	else
-	{
-		i = ft_calculatemv_ascendent(a, b, len, start);
-		if (!i)
-			i = ft_calculatemv_discendent(temp, a, b, i);
-	}
+		i += 1;
+	// i = ft_calculatemv_ascendent(a, b, len, start);
+	// if (!i)
+	// 	i = ft_calculatemv_discendent(temp, a, b, i);
 	return (i);
 }

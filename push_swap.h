@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/05/02 16:50:24 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/03 14:37:38 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,11 @@ int			ft_checkorder(t_stack *stack);
 //ft_order
 void		ft_order(t_all *l, int len, int c);
 //ft_calculatemv
-int			ft_calculatemv(t_stack *a, t_stack *b, t_stack *start, int temp);
+int			ft_calculatemv(t_stack *a, t_stack *b);
 //ft_search_content
 int			ft_check_less_content(t_stack *s);
 int			ft_check_content_pos(t_stack *stack, int n);
+int			ft_search_higher_to_n(t_stack *b, int n);
 //main
 void		ft_order_stack(t_stack **s, int rev, char c);
 

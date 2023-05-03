@@ -47,3 +47,20 @@ int	ft_check_content_pos(t_stack *stack, int n)
 	}
 	return (i);
 }
+
+// Search the less higher number than n
+int	ft_search_higher_to_n(t_stack *b, int n)
+{
+	int	high;
+	int	len;
+
+	len = ft_stacksize(b);
+	high = ft_bigger_stack_n(b);
+	while (len-- > 0)
+	{
+		if (b->content > n && b->content < high)
+			high = b->content;
+		b = b->next;
+	}
+	return (high);
+}

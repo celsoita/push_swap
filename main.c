@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/20 09:14:37 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/05/02 16:50:21 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:22:04 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,23 @@ void	ft_push_better(t_all *all, int n)
 	int	ma;
 	int	mb;
 
-	ma = all->mov_a[ft_check_content_pos(all->a, n)];
-	mb = all->mov_b[ft_check_content_pos(all->a, n)];
+	if (ft_stacksize(all->a) > 1)
+	{
+		ma = all->mov_a[ft_check_content_pos(all->a, n) - 1];
+		mb = all->mov_b[ft_check_content_pos(all->a, n) - 1];
+	}
+	else
+	{
+		mb = 0;
+		ma = 0;
+	}
 	while (ma < 0 && mb < 0)
 	{
 		ft_rrr_rrotate(&all->a, &all->b);
 		ma++;
 		mb++;
 	}
-	while (ma > 0 && mb > 0)
+	while (ma > 1 && mb > 0)
 	{
 		ft_rr_rotate(&all->a, &all->b);
 		ma--;
@@ -36,7 +44,7 @@ void	ft_push_better(t_all *all, int n)
 		ft_rotate(&all->a, 'a');
 	while (ft_checkindex(all->a, n, ft_stacksize(all->a)) < 0)
 		ft_rrotate(&all->a, 'a');
-	ft_order_b(&all->a, &all->b, ft_stacksize(all->a));
+	ft_order_b(&all->a, &all->b, ft_stacksize(all->b));
 }
 
 void	ft_order_stack(t_stack **s, int rev, char c)
@@ -46,7 +54,7 @@ void	ft_order_stack(t_stack **s, int rev, char c)
 	len = ft_stacksize(*s);
 	if (!rev)
 	{
-		if (ft_checkindex(*s, ft_less_stack_n(*s), len) > len / 2)
+		if (ft_checkindex(*s, ft_less_stack_n(*s), len) < len / 2)
 		{
 			while ((*s)->content > (*s)->prev->content)
 				ft_rotate(s, c);
@@ -57,7 +65,7 @@ void	ft_order_stack(t_stack **s, int rev, char c)
 	}
 	if (rev)
 	{
-		if (ft_checkindex(*s, ft_less_stack_n(*s), len) > len / 2)
+		if (ft_check_content_pos(*s, ft_less_stack_n(*s)) < len / 2)
 		{
 			while ((*s)->content < (*s)->prev->content)
 				ft_rotate(s, c);
@@ -165,7 +173,7 @@ int	main(int argc, char **argv)
 				// 	ft_rotate(&all.a, 'a');
 				// 	bigger_n = TRUE;
 				// }
-				all.mov_b = ft_countmva(all.b, all.a, ft_stacksize(all.a));
+				all.mov_b = ft_countmva(all.a, all.b, ft_stacksize(all.a));
 				all.mov_a = ft_countmvb(ft_stacksize(all.a));
 				ft_push_better(&all, ft_convertmv(&all));
 				free(all.mov_b);

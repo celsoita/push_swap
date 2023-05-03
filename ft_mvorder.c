@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:14:29 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/05/02 16:50:23 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/03 14:42:38 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ void	ft_order_b(t_stack **a, t_stack **b, int len)
 		ft_push(a, b, 'b');
 		return ;
 	}
-	if (ft_stacksize(*a) == 1)
-		ft_push(a, b, 'b');
 	i = 0;
 	while (i < len / 2)
 	{
@@ -112,19 +110,19 @@ void	ft_pushorder(int *alg, t_all *stack, int arr_len)
 // function countmovement for push element in right order
 int	*ft_countmva(t_stack *a, t_stack *b, int len)
 {
-	t_stack	*startb;
+	t_stack	*starta;
 	int		*res;
 	int		k;
 
 	k = 0;
-	startb = b;
+	starta = a;
 	res = malloc(sizeof(int) * len);
-	while (startb != b->next)
+	while (starta != a->next)
 	{
-		res[k++] = ft_calculatemv(a, b, a, len);
-		b = b->next;
+		res[k++] = ft_calculatemv(a, b);
+		a = a->next;
 	}
-	res[k] = ft_calculatemv(a, b, a, len);
+	res[k] = ft_calculatemv(a, b);
 	return (res);
 }
 
