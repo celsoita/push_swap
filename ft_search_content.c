@@ -30,6 +30,7 @@ int	ft_check_less_content(t_stack *s)
 	}
 	return (i);
 }
+
 //check content pos
 int	ft_check_content_pos(t_stack *stack, int n)
 {

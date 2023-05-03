@@ -6,107 +6,67 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 09:54:19 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/05/02 10:15:59 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:46:49 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-//fill an array with stack content
-int	*ft_fillarr(t_stack *lst, int *res, int pos)
+/*
+	Order stack s:
+	rev = TRUE: Reverse
+*/
+void	ft_order_stack(t_stack **s, t_bool rev, char c)
 {
-	while (pos >= 0)
-	{
-		res[pos] = ft_checknode(lst, res[pos]);
-		pos--;
-	}
-	return (res);
-}
+	int	len;
 
-//fill arr algorithm
-void	ft_algorithm_arr(t_stack *lst, int i, int k, int *arr)
-{
-	while (lst->end->next != lst)
+	len = ft_stacksize(*s);
+	if (!rev)
 	{
-		lst->start = lst;
-		i = 0;
-		while (lst->start != lst->end)
+		if (ft_checkindex(*s, ft_less_stack_n(*s), len) < len / 2)
 		{
-			if (lst->start->content < lst->end->content && arr[k] <= arr[i])
-				arr[k] = arr[i] + 1;
-			i++;
-			lst->start = lst->start->next;
+			while ((*s)->content > (*s)->prev->content)
+				ft_rotate(s, c);
 		}
-		lst->end = lst->end->next;
-		k++;
+		else
+			while ((*s)->content > (*s)->prev->content)
+				ft_rrotate(s, c);
 	}
-	lst->start = lst;
-	i = 0;
-	while (lst->start != lst->end)
+	if (rev)
 	{
-		if (lst->start->content < lst->end->content && arr[k] <= arr[i])
-			arr[k] = arr[i] + 1;
-		i++;
-		lst->start = lst->start->next;
+		if (ft_check_content_pos(*s, ft_less_stack_n(*s)) < len / 2)
+		{
+			while ((*s)->content < (*s)->prev->content)
+				ft_rotate(s, c);
+		}
+		else
+			while ((*s)->content < (*s)->prev->content)
+				ft_rrotate(s, c);
 	}
 }
 
-//
-int	ft_algorithm_subsq(int argc, int *len_arr, int *arr)
+// Order for 4 numbers
+void	ft_algofoure(t_all *stacks)
 {
 	int	i;
-	int	lenght;
 
-	i = 0;
-	lenght = 0;
-	while (i < argc)
+	i = ft_check_less_content(stacks->a);
+	while (stacks->a->content != i)
 	{
-		if (arr[i] > lenght)
-			lenght = arr[i];
-		i++;
+		if (ft_check_content_pos(stacks->a, i) < 3)
+			ft_rotate(&stacks->a, 'a');
+		else
+			ft_rrotate(&stacks->a, 'a');
 	}
-	i = argc - 1;
-	*len_arr = lenght;
-	while (i > 0)
+	if (ft_checkorder(stacks->a))
 	{
-		if (lenght == arr[i])
-			break ;
-		i--;
+		ft_push(&stacks->a, &stacks->b, 'b');
+		ft_minialgo(&stacks->a, 3);
+		ft_push(&stacks->b, &stacks->a, 'a');
 	}
-	return (i);
 }
 
-//its a LIS algorithm
-int	*ft_algorithm(t_stack *lst, int argc, int *len_arr)
-{
-	int	i;
-	int	*res;
-	int	*arr;
-	int	lenght;
-
-	arr = malloc(sizeof(int) * argc);
-	lst->end = lst;
-	i = 0;
-	while (i < argc)
-		arr[i++] = 1;
-	ft_algorithm_arr(lst, i, 0, arr);
-	i = ft_algorithm_subsq(argc, len_arr, arr);
-	res = malloc(sizeof(int) * (*len_arr));
-	lenght = *len_arr;
-	res[--lenght] = i;
-	while (lenght > 0)
-	{
-		if (arr[i] == lenght && \
-		ft_checknode(lst, i) < ft_checknode(lst, res[lenght]))
-			res[--lenght] = i;
-		i--;
-	}
-	res = ft_fillarr(lst, res, *len_arr - 1);
-	free(arr);
-	return (res);
-}
-
-//mini algorithm for 2/3 number in stack
+// mini algorithm for 2/3 number in stack
 void	ft_minialgo(t_stack **a, int len)
 {
 	if (len == 2)

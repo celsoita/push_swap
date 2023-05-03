@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 09:54:39 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/22 11:49:46 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/03 16:50:04 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,40 +23,10 @@ t_stack	*ft_add(t_stack *prev, int n)
 	return (node);
 }
 
-//print stack (print list)
-void	ft_printstack_new(t_stack *lst)
-{
-	t_stack	*temp;
-
-	if (!lst)
-		return ;
-	temp = lst;
-	while (temp->next != lst)
-	{
-		ft_printf("%d\n", temp->content);
-		temp = temp->next;
-	}
-	ft_printf("%d\n", temp->content);
-}
-
-// reverse print stack
-void	ft_printstack_rnew(t_stack *lst)
-{
-	t_stack	*temp;
-
-	if (!lst)
-		return ;
-	temp = lst->prev;
-	while (temp != lst)
-	{
-		ft_printf("%d\n", temp->content);
-		temp = temp->prev;
-	}
-	ft_printf("%d\n", temp->content);
-}
-
-//this function create stack and we need a len = argc 
-// and argument = argv and return all the stack
+/*
+	this function create stack and we need a len = argc 
+	and argument = argv and return all the stack
+*/
 t_stack	*ft_createstack(int argc, char **argv)
 {
 	t_stack	*lst;

@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/05/03 14:37:38 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/03 17:52:51 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,15 @@ void		ft_rr_rotate(t_stack **a, t_stack **b);
 void		ft_rrr_rrotate(t_stack **a, t_stack **b);
 //ft_stacks
 t_stack		*ft_add(t_stack *prev, int n);
-void		ft_printstack_new(t_stack *lst);
-void		ft_printstack_rnew(t_stack *lst);
 t_stack		*ft_createstack(int argc, char **argv);
 //ft_algorithm
-int			*ft_fillarr(t_stack *lst, int *res, int pos);
-int			*ft_algorithm(t_stack *lst, int argc, int *len_arr);
+void		ft_order_stack(t_stack **s, t_bool rev, char c);
+void		ft_algofoure(t_all *stacks);
 void		ft_minialgo(t_stack **a, int len);
-//ft_mvorder
+//ft_order
 void		ft_order_b(t_stack **a, t_stack **b, int len);
-void		ft_pushorder(int *alg, t_all *stack, int arr_len);
+void		ft_push_better(t_all *all, int n);
+//ft_mvorder
 int			*ft_countmva(t_stack *a, t_stack *b, int len);
 int			*ft_countmvb(int len);
 int			ft_convertmv(t_all *stacks);
@@ -78,15 +77,11 @@ int			ft_stacksize(t_stack *stack);
 int			ft_checklessnum(int *arr, int len);
 int			ft_checkindex(t_stack *b, int n, int len);
 int			ft_checkorder(t_stack *stack);
-//ft_order
-void		ft_order(t_all *l, int len, int c);
 //ft_calculatemv
 int			ft_calculatemv(t_stack *a, t_stack *b);
 //ft_search_content
 int			ft_check_less_content(t_stack *s);
 int			ft_check_content_pos(t_stack *stack, int n);
 int			ft_search_higher_to_n(t_stack *b, int n);
-//main
-void		ft_order_stack(t_stack **s, int rev, char c);
 
 #endif

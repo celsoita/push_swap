@@ -80,11 +80,12 @@ int	ft_checkindex(t_stack *b, int n, int len)
 	}
 	return (i);
 }
-//this function check order of stack
+
+// Check order of stack
 int	ft_checkorder(t_stack *stack)
 {
-	t_stack *temp;
-	
+	t_stack	*temp;
+
 	temp = stack->prev;
 	while (stack != temp)
 	{
