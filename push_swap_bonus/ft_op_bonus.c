@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_op.c                                            :+:      :+:    :+:   */
+/*   ft_op_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/14 11:55:34 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/04/14 11:55:34 by cschiavo         ###   ########.fr       */
+/*   Created: 2023/05/04 15:37:09 by cschiavo          #+#    #+#             */
+/*   Updated: 2023/05/04 15:37:09 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 // this function swap the first 2 element in the list
-void	ft_swap(t_stack *lst, char name)
+void	ft_swap(t_stack *lst)
 {
 	int	temp;
 
+	if (lst == NULL)
+		return ;
 	temp = lst->content;
 	lst->content = lst->next->content;
 	lst->next->content = temp;
-	ft_printf("s%c\n", name);
 }
 
 // this function push the first element in stack_in to stack_out
-void	ft_push(t_stack **stack_in, t_stack **stack_out, char n)
+void	ft_push(t_stack **stack_in, t_stack **stack_out)
 {
 	t_stack	*temp;
 
@@ -49,39 +50,11 @@ void	ft_push(t_stack **stack_in, t_stack **stack_out, char n)
 	}
 	*stack_out = *stack_in;
 	*stack_in = temp;
-	ft_printf("p%c\n", n);
 }
 
-//this function search the less number in stack
-int	ft_less_stack_n(t_stack *stack)
+// swap both stack
+void	ft_ss(t_stack *a, t_stack *b)
 {
-	int	l;
-	int	i;
-
-	l = ft_stacksize(stack);
-	i = stack->content;
-	while (l-- > 0)
-	{
-		if (stack->content < i)
-			i = stack->content;
-		stack = stack->next;
-	}
-	return (i);
-}
-
-//this function search the biggest number in stack
-int	ft_bigger_stack_n(t_stack *stack)
-{
-	int	l;
-	int	i;
-
-	l = ft_stacksize(stack);
-	i = stack->content;
-	while (l-- > 0)
-	{
-		if (stack->content > i)
-			i = stack->content;
-		stack = stack->next;
-	}
-	return (i);
+	ft_swap(a);
+	ft_swap(b);
 }

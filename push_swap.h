@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/14 12:28:07 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/05/04 10:03:59 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/04 14:42:18 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,6 @@ int			ft_checklessnum(int *arr, int len);
 int			ft_checkindex(t_stack *b, int n, int len);
 int			ft_checkorder(t_stack *stack);
 //ft_calculatemv
-int			ft_calculatemv(t_stack *a, t_stack *b);
 void		ft_init(int *argc, char **argv, t_bool *noarray, char ***temp);
 void		ft_less_six_numbers(t_all *all);
 void		ft_more_five_numbers(t_all *all);

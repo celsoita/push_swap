@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_calculatemv.c                                   :+:      :+:    :+:   */
+/*   ft_init_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/20 12:13:37 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/05/04 15:12:32 by cschiavo         ###   ########.fr       */
+/*   Created: 2023/05/04 14:39:06 by cschiavo          #+#    #+#             */
+/*   Updated: 2023/05/04 15:46:37 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 //check if number is not a int
 int	ft_check_is_int(char *str)
@@ -71,45 +71,4 @@ void	ft_init(int *argc, char **argv, t_bool *noarray, char ***temp)
 			ft_freematrix(*temp);
 		exit (0);
 	}
-}
-
-// algo for less six numbers
-void	ft_less_six_numbers(t_all *all)
-{
-	if (all->len < 4)
-		ft_minialgo(&all->a, all->len);
-	if (all->len == 5)
-	{
-		while (all->a->content != ft_check_less_content(all->a))
-		{
-			if (ft_check_content_pos(all->a, ft_check_less_content(all->a)) < 3)
-				ft_rotate(&all->a, 'a');
-			else
-				ft_rrotate(&all->a, 'a');
-		}
-		if (ft_checkorder(all->a))
-			ft_push(&all->a, &all->b, 'b');
-	}
-	if (all->len > 3)
-		ft_algofoure(all);
-	if (all->len == 5 && ft_stacksize(all->b))
-		ft_push(&all->b, &all->a, 'a');
-}
-
-// algo for more five numbers
-void	ft_more_five_numbers(t_all *all)
-{
-	ft_push(&all->a, &all->b, 'b');
-	ft_push(&all->a, &all->b, 'b');
-	while (all->a)
-	{
-		all->mov_b = ft_countmva(all->a, all->b, ft_stacksize(all->a));
-		all->mov_a = ft_countmvb(ft_stacksize(all->a));
-		ft_push_better(all, ft_convertmv(all));
-		free(all->mov_b);
-		free(all->mov_a);
-	}
-	ft_order_stack(&all->b, TRUE, 'b');
-	while (all->b)
-		ft_push(&all->b, &all->a, 'a');
 }
