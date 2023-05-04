@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/19 15:14:29 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/05/03 17:10:32 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/04 10:43:05 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,12 @@ int	*ft_countmva(t_stack *a, t_stack *b, int len)
 	res = malloc(sizeof(int) * len);
 	while (starta != a->next)
 	{
-		res[k++] = ft_calculatemv(a, b);
+		res[k++] = ft_checkindex(b, \
+					ft_search_higher_to_n(b, a->content), ft_stacksize(b)) + 1;
 		a = a->next;
 	}
-	res[k] = ft_calculatemv(a, b);
+	res[k] = ft_checkindex(b, \
+					ft_search_higher_to_n(b, a->content), ft_stacksize(b)) + 1;
 	return (res);
 }
 
