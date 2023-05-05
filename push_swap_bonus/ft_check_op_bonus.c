@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 15:34:50 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/05/04 16:55:04 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/05 11:13:54 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	ft_check_op(t_all *all)
 	check = "1";
 	while (check != NULL)
 	{
-		check = get_next_line(1);
+		check = get_next_line(0);
 		if (check == NULL)
 			break ;
 		if (ft_conditions_check_op(all, check) == TRUE)

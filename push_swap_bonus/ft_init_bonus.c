@@ -6,7 +6,7 @@
 /*   By: cschiavo <cschiavo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/04 14:39:06 by cschiavo          #+#    #+#             */
-/*   Updated: 2023/05/04 15:46:37 by cschiavo         ###   ########.fr       */
+/*   Updated: 2023/05/05 11:09:00 by cschiavo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	ft_continue_check_is_int(int argc, char **str)
 
 	i = 0;
 	while (i < argc)
-		if (ft_check_is_int(str[++i]))
+		if (ft_check_is_int(str[i++]))
 			return (1);
 	return (0);
 }
@@ -63,10 +63,11 @@ void	ft_init(int *argc, char **argv, t_bool *noarray, char ***temp)
 		*temp = ft_checkarr(argc, **temp);
 		*noarray = TRUE;
 	}
-	if (ft_checkarg(*argc, *temp) || ft_continue_check_is_int(*argc, argv) \
-	|| ft_checknum(*argc, *temp) || ft_strlarg(*argc, *temp))
+	if (ft_checkarg(*argc, *temp) || ft_continue_check_is_int(*argc, *temp) \
+	|| ft_checknum(*argc, *temp) || ft_strlarg(*argc, *temp) || !**temp)
 	{
-		write(2, "error\n", 6);
+		if (**temp)
+			write(2, "error\n", 6);
 		if (*noarray == TRUE)
 			ft_freematrix(*temp);
 		exit (0);
